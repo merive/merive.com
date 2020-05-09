@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		{% block title %}{% endblock %}
+	</title>
+	<link href="https://fonts.googleapis.com/css?family=Changa&display=swap" rel="stylesheet">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+<header class="masthead mb-auto">
+  <div class='horisantal'>
+    <h4>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="/home">merive_</a>
+        <a class="nav-link" href="https://github.com/merive">My GitHub</a>
+        <a class="nav-link" href="https://twitter.com/merive_">My Twitter</a>
+        <a class="nav-link" href="https://reddit.com/user/merive_">My Reddit</a>
+        <a class="nav-link" href="/about">About</a>
+      </nav>
+    </h4>
+  </div>
+</header>
+{% block body %}{% endblock %}
+</body>
+</html>
