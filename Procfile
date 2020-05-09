@@ -1,1 +1,1 @@
-web: gunicorn merive.com.app --log-file -
+web: gunicorn app:app
