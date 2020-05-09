@@ -1,1 +1,1 @@
-web: gunicorn merivecom:app
+web: gunicorn app:app
