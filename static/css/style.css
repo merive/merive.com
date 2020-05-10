@@ -1,48 +1,48 @@
 body {
-	background-image: linear-gradient(to right, #286334, #327a70);
-	font-family: 'Changa', sans-serif;
+    background-image: linear-gradient(to right, #286334, #327a70);
+    font-family: 'Changa', sans-serif;
 }
 
 
 ::-webkit-scrollbar {
-	width: 0;
+    width: 0;
 }
 
 
 nav {
-	position: absolute;
-	right: auto;
+    position: absolute;
+    right: auto;
 }
 
 a {
-	color: #000000;
-	text-decoration: none;
+    color: #000000;
+    text-decoration: none;
 }
 
 a:hover {
-	border-bottom: solid;
-	color: #329486;
+    border-bottom: solid;
+    color: #329486;
 }
 
 h1 {
-	font-size: 2.5em;
+    font-size: 2.5em;
 }
 
 section {
-	position:absolute;
-	width:100%;
-	top:40%;
-	text-align:center;
-	color: black;	
-	font-size: 1em;
+    position: absolute;
+    width: 100%;
+    top: 40%;
+    text-align: center;
+    color: black;
+    font-size: 1em;
 }
 
 footer {
-	position: absolute;
-	width: 100%;
-	top: 90%;
-	text-align: center;
-	font-size: 2em;
-	color: black;
-	font-family: 'Monoton', cursive;
+    position: absolute;
+    width: 100%;
+    top: 90%;
+    text-align: center;
+    font-size: 2em;
+    color: black;
+    font-family: 'Monoton', cursive;
 }
