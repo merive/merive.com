@@ -3,6 +3,12 @@ body {
 	font-family: 'Changa', sans-serif;
 }
 
+
+::-webkit-scrollbar {
+	width: 0;
+}
+
+
 nav {
 	position: absolute;
 	right: auto;
