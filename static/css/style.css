@@ -26,7 +26,7 @@ h1 {
 section {
     position: absolute;
     width: 100%;
-    top: 40%;
+    top: 30%;
     text-align: center;
     color: black;
     font-size: 1em;
@@ -55,5 +55,14 @@ footer {
     float: left;
     margin: 1.858736059%;
     width: 29.615861214%;
+}
+
+.selector-for-some-widget {
+    box-sizing: content-box;
+}
+
+p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5rem;
 }
 
