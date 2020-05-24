@@ -15,12 +15,12 @@ a {
 }
 
 a:hover {
-    border-bottom: solid;
     color: #329486;
+    border-bottom: solid;
 }
 
 h1 {
-    font-size: 2.5em;
+    font-size: 2.0em;
 }
 
 section {
@@ -32,37 +32,16 @@ section {
     font-size: 1em;
 }
 
-footer {
-    position: absolute;
-    width: 100%;
-    top: 90%;
-    text-align: center;
-    font-size: 2em;
-    color: black;
-    font-family: 'Monoton', cursive;
-}
-
-.mp {
-    position: absolute;
-    width: 100%;
-    bottom: 100%;
-    text-align: center;
-    font-size: 24px;
-}
-
-.project {
-    font-size: 12px;
-    float: left;
-    margin: 1.858736059%;
-    width: 29.615861214%;
+.tit {
+    font-size: 1.2em;
 }
 
 .selector-for-some-widget {
     box-sizing: content-box;
 }
 
-p {
-    margin-top: 0.5em;
-    margin-bottom: 0.5rem;
+.element {
+    margin-top: 2.3em;
+    margin-bottom: 2.5em;
 }
 
