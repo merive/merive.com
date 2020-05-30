@@ -34,10 +34,12 @@ section {
 
 .tit {
     font-size: 1.2em;
+    font-family: 'Monoton', cursive;
 }
 
 .home {
     font-size: 2em;
+    font-family: 'Monoton', cursive;
 }
 
 .selector-for-some-widget {
