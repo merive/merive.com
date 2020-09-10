@@ -7,25 +7,67 @@
         {% block title %}{% endblock %}
     </title>
     <link href="https://fonts.googleapis.com/css?family=Changa&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Peta&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-<header class="masthead mb-auto">
-    <div class='horizontal'>
-        <h4>
-            <nav class="nav nav-masthead justify-content-center">
-                <a class="nav-link" href="/home">merive_</a>
-                <a class="nav-link" href="/projects">My Projects</a>
-                <a class="nav-link" href="/links">My Links</a>
-                <a class="nav-link" href="/about">About</a>
-            </nav>
-        </h4>
-    </div>
-</header>
+<style>
+    body {
+        background-image: linear-gradient(to right, #286334, #327a70);
+        font-family: 'Changa', sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: #2d6e51;
+        font-size: 20px;
+        font-family: 'Changa', sans-serif;
+
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111;
+        color: #2d6e51;
+        text-decoration: none;
+    }
+
+    section {
+        font-family: 'Lexend Peta', sans-serif;
+        color: black;
+        font-size: 1.2em;
+    }
+</style>
+<ul>
+    <li><a href="/home">merive_</a></li>
+    <li style="float:right"><a href="/about">About</a></li>
+    <li style="float:right"><a href="/links">My Links</a></li>
+    <li style="float:right"><a href="/projects">My Projects</a></li>
+</ul>
 {% block body %}{% endblock %}
 </body>
 </html>

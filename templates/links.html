@@ -5,33 +5,43 @@
 {% endblock %}
 
 {% block body %}
+    <style>
+        a {
+            color: black;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #111;
+            text-decoration: none;
+        }
+    </style>
     <section>
-        <div class="tit"><h1>My Links</h1></div>
-        <div class='elements'>
-            <figure class="element">
-                <h2><a href="https://github.com/merive">My GitHub</a></h2>
-                <h3>
-                    In my github, I work on my designs.
-                    <br>I make changes every day and try not to abandon my projects.
-                    <br>You can learn more about my projects on the <a href="/projects">My Projects page</a>.
-                </h3>
-            </figure>
-            <figure class="element">
-                <h2><a href="https://twitter.com/merive_">My Twitter</a></h2>
-                <h3>
-                    This is my mini blog.
-                    <br>In it, I tell what is happening in my life and what I do.
-                    <br>I often tweet.
-                </h3>
-            </figure>
-            <figure class="element">
-                <h2><a href="https://www.reddit.com/user/merive_">My Reddit</a></h2>
-                <h3>
-                    This is my another blog.
-                    <br>In it, I talk about projects that I am currently working on or have already done.
-                    <br>So far, I rarely do posts.
-                </h3>
-            </figure>
-        </div>
+        <h2>
+            <b>
+                <a href="https://github.com/merive">My GitHub</a>
+            </b>
+        </h2>
+        <p>
+            In my github, I work on my designs.
+            <br>I make changes every day and try not to abandon my projects.
+            <br>You can learn more about my projects on the <a href="/projects">My Projects page</a>.
+        </p>
+        <h2>
+            <b>
+                <a href="https://twitter.com/merive_">My Twitter</a>
+            </b>
+        </h2>
+        <p>
+            This is my mini blog.
+            <br>In it, I tell what is happening in my life and what I do.
+            <br>I often tweet.
+        </p>
+        <h2><b><a href="https://www.reddit.com/user/merive_">My Reddit</a></b></h2>
+        <p>
+            This is my another blog.
+            <br>In it, I talk about projects that I am currently working on or have already done.
+            <br>So far, I rarely do posts.
+        </p>
     </section>
 {% endblock %}
