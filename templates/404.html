@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Ups, 404
+    404
 {% endblock %}
 
 {% block body %}
@@ -14,7 +14,7 @@
             transform: translate(-50%, -50%);
 
             font-family: 'Lexend Peta', sans-serif;
-            font-size: 2em;
+            font-size: 3em;
             color: #000000;
         }
 
@@ -30,12 +30,10 @@
             transform: translate(-50%, -50%);
         }
     </style>
-    <section>
-        <div>
-            <div class="error">Something went<br>wrong, 404...</div>
-        </div>
-        <div>
-            <div class="footer">merive_</div>
-        </div>
-    </section>
+    <div>
+        <div class="error">Something went wrong, 404...</div>
+    </div>
+    <div>
+        <div class="footer">merive_</div>
+    </div>
 {% endblock %}
