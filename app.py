@@ -1,7 +1,8 @@
+import os
 import flask
+from flask import Flask, send_from_directory
 
-app = flask.Flask(__name__)
-
+app = Flask(__name__)
 
 @app.route('/')
 @app.route('/home')
@@ -23,11 +24,17 @@ def projects():
 def links():
     return flask.render_template('links.html')
 
+@app.route('/press1mtimes')
+def press1mtimes():
+    return flask.render_template('press1mtimes.html')
+
+@app.route('/download', methods=['GET'])
+def download():
+    return send_from_directory(directory='files', filename='app.apk', as_attachment=True)
 
 @app.errorhandler(404)
 def page_not_found(e):
     return flask.render_template('404.html'), 404
-
 
 if __name__ == "__main__":
     app.run(debug=False)

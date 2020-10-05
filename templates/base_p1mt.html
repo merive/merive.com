@@ -11,12 +11,12 @@
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Peta&display=swap" rel="stylesheet">
-    <link href="{{ url_for('static', filename='merive_icon.png') }}" rel="shortcut icon">
+    <link href="{{ url_for('static', filename='press1mtimes_icon.png') }}" rel="shortcut icon">
 </head>
 <body>
 <style>
     body {
-        background-image: linear-gradient(to right, #286334, #327a70);
+        background: #2C2C2C;
         font-family: 'Changa', sans-serif;
     }
 
@@ -24,13 +24,13 @@
         width: 0;
     }
 
-    ul {
+     ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
         overflow: hidden;
         background-color: #333;
-        position: -webkit-sticky; /* Safari */
+        position: -webkit-sticky; 
         position: sticky;
         top: 0;
     }
@@ -41,32 +41,26 @@
 
     li a {
         display: block;
-        color: #2d6e51;
+        color: #C82A1E;
         font-size: 20px;
         font-family: 'Changa', sans-serif;
 
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
-    }
+    } 
 
     li a:hover {
-        background-color: #111;
-        color: #2d6e51;
+        background-color: #2C2C2C;
+        color: #C82A1E;
         text-decoration: none;
     }
 
-    section {
-        font-family: 'Lexend Peta', sans-serif;
-        color: black;
-        font-size: 1.2em;
-    }
 </style>
 <ul>
-    <li><a href="/home">merive_</a></li>
-    <li><a href="/projects">My Projects</a></li>
-    <li><a href="/links">My Links</a></li>
-    <li><a href="/about">About</a></li>
+    <li><a href="/press1mtimes">Press1MTimes</a></li>
+    <li><a href="https://github.com/merive/Press1MTimes">GitHub</a></li> 
+    <li><a href="/">Back</a></li>   
 </ul>
 {% block body %}{% endblock %}
 </body>

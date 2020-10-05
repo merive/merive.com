@@ -1,0 +1,70 @@
+{% extends 'base_p1mt.html' %}
+
+{% block title %}
+Press1MTimes
+{% endblock %}
+
+{% block body %}
+<html>
+<style>
+    .title {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 4em;
+        color: #C82A1E;
+    }
+
+    .btn {
+        position: absolute;
+        margin-top: 24em;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        display:block;
+        height: 250px;
+        width: 250px;
+        border-radius: 50%;
+        border: 17px solid #AF251B;
+        background: #C82A1E;
+    }
+
+    .btn a {
+        display: block;
+        float: left;
+        width: 100%;
+        padding-top: 50%;
+        padding-bottom: 50%;
+        line-height: 1em;
+
+        color: #AF251B;
+        text-align: center;
+        font-family: Verdana;
+        font-size: 1.7em;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .btn a:hover {
+        color: #AF251B;
+    }
+
+    .about {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 2em;
+        color: #C82A1E;
+    }
+</style>
+    <div class="title">Press 1M Times</div>
+    <div class="btn"><a href="/download">DOWNLOAD</a></div>
+</html>
+{% endblock %}
