@@ -32,7 +32,7 @@ def press1mtimes():
 
 @app.route('/download', methods=['GET'])
 def download():
-    return send_from_directory(directory='files', filename='app.apk', as_attachment=True)
+    return send_from_directory(directory='files', filename='app_v1.2.5.apk', as_attachment=True)
 
 
 @app.errorhandler(404)
