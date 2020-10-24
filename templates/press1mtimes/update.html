@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>
+        Update APK file
+    </title>
+    <link href="https://fonts.googleapis.com/css?family=Changa&display=swap" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
+    <link href="{{ url_for('static', filename='press1mtimes_icon.png') }}" rel="shortcut icon">
+</head>
+<body>
+<style>
+    body {
+        background: #2C2C2C;
+        font-family: 'Changa', sans-serif;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .elm {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 2em;
+        color: #C82A1E;
+    }
+
+    .inp {
+        font-size: 1em;
+        color: #2C2C2C;
+        background-color: #C82A1E;
+        border: 5px solid #000;
+        padding: 8px 20px;
+	  	border-radius: 8px;
+    }
+
+    .inp:
+
+</style>
+
+<div class="elm">
+   	<b>ONLY FOR DEV</b>
+      <form action="/load" method="POST" 
+         enctype="multipart/form-data">
+         <input class="inp" type="file" name="file"/>
+         <br><br><input class="inp" name="key">
+         <br><br><input class="inp" type="submit"/>
+       </form>
+</div>
+
+</body>
+</html>

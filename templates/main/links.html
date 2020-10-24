@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'bases/base.html' %}
 
 {% block title %}
 Links
@@ -6,16 +6,20 @@ Links
 
 {% block body %}
 <style>
-        a {
-            color: black;
-            text-decoration: none;
-        }
+    a {
+        color: black;
+        text-decoration: none;
+    }
 
-        a:hover {
-            color: #111;
-            text-decoration: none;
-        }
+    a:hover {
+        color: #111;
+        text-decoration: none;
+    }
 
+    section {
+        padding-left: 2%;
+        padding-top: 1%;
+    }
 </style>
 <section>
     <h2>
@@ -26,7 +30,7 @@ Links
     <p>
         In my github, I work on my designs.
         <br>I make changes every day and try not to abandon my projects.
-        <br>You can learn more about my projects on the <a href="/projects">My Projects page</a>.
+        <br>You can learn more about my projects on the <b><a href="/projects">My Projects page</a></b>.
     </p>
     <h2>
         <b>
