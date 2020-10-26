@@ -24,34 +24,69 @@ Press1MTimes
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
+    }
+
+    .ecl1 {     
+        /* Ellipse 1 */
         width: 256px;
         height: 256px;
-        background-image: url('static/button.png');
+        border-radius: 50%;
+
+        background: #AF251B;
+        border: 5px solid #2C2C2C;
+        box-sizing: border-box;
+
+        -webkit-text-stroke: 5px #2C2C2C;
     }
 
-    .btn a {
-        display: block;
-        float: left;
-        width: 100%;
-        padding-top: 50%;
-        padding-bottom: 50%;
-        line-height: 1em;
+    .ecl2 { 
+        /* Set position */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        /* Ellipse 2 */
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
 
+        background: #C82A1E;
+        border: 5px solid #2C2C2C;
+        box-sizing: border-box;
+    }
+
+    .text {
+        /* Text parameters */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        width: 256px;
+        height: 256px;
+
+        /* Text, font, size parameters */
         color: #AF251B;
-        text-align: center;
-        font-family: Verdana;
-        font-size: 1.7em;
-        font-weight: bold;
+        font-family: Arial;
+        font-size: 2em;
         text-decoration: none;
+        -webkit-text-stroke: 2px #2C2C2C;
+
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 50%
     }
 
-    .btn a:hover {
+    .text:hover {
         color: #AF251B;
+        text-decoration: none;
     }
 
     .version {
         position: absolute;
-        bottom: 3%;
+        bottom: 0%;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
@@ -61,8 +96,16 @@ Press1MTimes
     }
 
 </style>
-<div class="title">Press 1M Times</div>
-<div class="btn"><a href="/download"></a></div>
-<div class="version">Actual version: <i>{{ version }}</i></div>
+<main>
+    <p class="title">Press 1M Times</p>
+    <div class="btn">
+        <div class="ecl1">
+            <div class="ecl2">
+                <a class="text" href="/download">DOWNLOAD</a>
+            </div>
+        </div>
+    </div>
+    <p class="version">Actual version: <i>{{ version }}</i></p>
+</main>
 </html>
 {% endblock %}
