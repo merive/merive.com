@@ -9,6 +9,7 @@ Update APK file
 <style>
     p {
         margin-left: 10px;
+        font-size: 3em;
     }
 
     .elm {
@@ -24,24 +25,21 @@ Update APK file
     .inp {
         color: #2C2C2C;
         background-color: #C82A1E;
-        border: 5px solid #000;
+        border: 0.3em  solid #000;
 	  	border-radius: 8px;
-        padding: 4px;
-        padding-bottom: 8px;
 
+        width: 18em;
+        height: 4em; 
+
+        padding: 12px;
+        padding-bottom: 8px;
         margin: 10px;
     }
 
-    b {
-        font-size: 2em;
-    }
-
-
 </style>
 <div class="elm">
-    <form action="/load" enctype="multipart/form-data"
-          method="POST">
-        <p><b>ONLY FOR DEV</b></p>
+    <form action="/load" enctype="multipart/form-data" method="POST">
+        <p>ONLY FOR DEV</p>
         <input class="inp" name="file" type="file"/>
         <br><input class="inp" name="key">
         <br><input class="inp" type="submit"/>
