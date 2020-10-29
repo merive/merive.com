@@ -32,7 +32,7 @@ def links():
 
 @app.route('/press1mtimes')
 def press1mtimes():
-    return flask.render_template('press1mtimes/press1mtimes.html',
+    return flask.render_template('press1mtimes/home.html',
                                  version=listdir("files/")[0].split("_")[1].split(".apk")[0])
 
 
