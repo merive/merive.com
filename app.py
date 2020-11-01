@@ -1,6 +1,8 @@
 import os
 from os import listdir
 
+import hashlib
+
 import flask
 from flask import Flask, request
 from werkzeug.utils import secure_filename
@@ -54,7 +56,7 @@ def load():
     key = os.environ.get('KEY')
     u_key = request.form['key']
 
-    if u_key != key:
+    if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != key:
         return "Wrong password."
 
     f = request.files['file']
