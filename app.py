@@ -1,6 +1,8 @@
 import os
 from os import listdir
 
+import hashlib
+
 import flask
 from flask import Flask, request
 from werkzeug.utils import secure_filename
@@ -32,7 +34,7 @@ def links():
 
 @app.route('/press1mtimes')
 def press1mtimes():
-    return flask.render_template('press1mtimes/press1mtimes.html',
+    return flask.render_template('press1mtimes/home.html',
                                  version=listdir("files/")[0].split("_")[1].split(".apk")[0])
 
 
@@ -54,7 +56,7 @@ def load():
     key = os.environ.get('KEY')
     u_key = request.form['key']
 
-    if u_key != key:
+    if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != key:
         return "Wrong password."
 
     f = request.files['file']
