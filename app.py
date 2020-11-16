@@ -1,7 +1,6 @@
+import hashlib
 import os
 from os import listdir
-
-import hashlib
 
 import flask
 from flask import Flask, request
@@ -9,6 +8,8 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'files/'
+version = listdir("files/")[0][4:-4] if listdir("files/")[0][10:] == ".apk" and listdir("files/")[0][:3] == "app" \
+    else listdir("files/")[0]
 
 
 @app.route('/')
@@ -34,8 +35,7 @@ def links():
 
 @app.route('/press1mtimes')
 def press1mtimes():
-    return flask.render_template('press1mtimes/home.html',
-                                 version=listdir("files/")[0].split("_")[1].split(".apk")[0])
+    return flask.render_template('press1mtimes/home.html', version=version)
 
 
 @app.route('/download', methods=['GET'])
@@ -60,14 +60,19 @@ def load():
         return "Wrong password."
 
     f = request.files['file']
+    global version
+    filename = secure_filename(f.filename)
+    if filename[10:] == ".apk" and filename[:3] == "app":
+        version = filename[4:-4]
+    else:
+        return "Wrong file name..."
 
     files = listdir("files/")
     for file in files:
         os.remove(f'files/{file}')
-
-    filename = secure_filename(f.filename)
     f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return "File update."
+
+    return flask.render_template('press1mtimes/home.html', version=version)
 
 
 @app.errorhandler(404)
