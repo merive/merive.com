@@ -27,6 +27,7 @@ Update APK file
         background-color: #C82A1E;
         border: 0.3em  solid #000;
 	  	border-radius: 8px;
+	  	border-color: #333;
 
         width: 18em;
         height: 4em; 
@@ -36,12 +37,19 @@ Update APK file
         margin: 10px;
     }
 
+    ::placeholder {
+        color: #2c2c2c;
+        opacity: 1;
+    }
+}
+
 </style>
 <div class="elm">
     <form action="/load" enctype="multipart/form-data" method="POST">
         <p>ONLY FOR DEV</p>
         <input class="inp" name="file" type="file"/>
-        <br><input class="inp" name="key">
+        <br><input class="inp" name="key" placeholder="Write key" style="">
+        <br><input class="inp" name="v_code" placeholder="Write version code">
         <br><input class="inp" type="submit"/>
     </form>
 </div>
