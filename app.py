@@ -78,6 +78,7 @@ def load():
     return flask.render_template('press1mtimes/home.html', version=version)
 
 
+# noinspection PyUnusedLocal
 @app.errorhandler(404)
 def page_not_found(e):
     return flask.render_template('main/404.html'), 404
