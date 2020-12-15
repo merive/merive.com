@@ -6,22 +6,30 @@ Home
 
 {% block body %}
 <style>
-    p {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-top: 10%;
+    }
+
+    p {
         font-family: 'Lexend Peta', sans-serif;
-        font-size: 3em;
+        font-size: 2em;
         color: black;
     }
 
 </style>
 
 <main>
-    <p>Welcome to my site!</p>
+    <p>
+        <b>Hi, I'm merive_, Welcome to my site.</b>
+        <br>On this site you will learn about me,<br>my projects, my links and much more.
+    </p>
 </main>
 {% endblock %}
 
