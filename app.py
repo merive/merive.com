@@ -63,7 +63,10 @@ def load():
     global version
     filename = secure_filename(f.filename)
     if filename[10:] == ".apk" and filename[:3] == "app":
-        version = filename[4:-4]
+        if request.form['v_code'] != "":
+            version = request.form['key']
+        else:
+            version = filename[4:-4]
     else:
         return "Wrong file name..."
 
@@ -75,6 +78,7 @@ def load():
     return flask.render_template('press1mtimes/home.html', version=version)
 
 
+# noinspection PyUnusedLocal
 @app.errorhandler(404)
 def page_not_found(e):
     return flask.render_template('main/404.html'), 404

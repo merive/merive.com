@@ -6,22 +6,34 @@ Home
 
 {% block body %}
 <style>
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-top: 10%;
+    }
+
     p {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
+	position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translateX(-50%) translateY(-50%);
 
         font-family: 'Lexend Peta', sans-serif;
-        font-size: 3em;
+        font-size: 2em;
         color: black;
     }
 
 </style>
 
 <main>
-    <p>Welcome to my site!</p>
+    <p>
+        Welcome to my site. Explore.
+    </p>
 </main>
 {% endblock %}
 
