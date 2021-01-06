@@ -64,7 +64,7 @@ def load():
     filename = secure_filename(f.filename)
     if filename[10:] == ".apk" and filename[:3] == "app":
         if request.form['v_code'] != "":
-            version = request.form['key']
+            version = request.form['v_code']
         else:
             version = filename[4:-4]
     else:
