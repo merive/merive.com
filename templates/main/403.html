@@ -1,0 +1,37 @@
+{% extends 'bases/base.html' %}
+
+{% block title %}
+403
+{% endblock %}
+
+{% block body %}
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding-left: 10%;
+        padding-right: 10%;
+        padding-top: 10%;
+    }
+
+    p {
+	position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translateX(-50%) translateY(-50%);
+
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2em;
+        color: black;
+    }
+    
+
+</style>
+
+<main>
+    <p>Access is denied, 403...</p>
+</main>
+{% endblock %}

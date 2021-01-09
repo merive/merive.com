@@ -1,3 +1,5 @@
+import hashlib
+import os
 from io import BytesIO
 
 import flask
@@ -61,6 +63,12 @@ class Base(db.Model):
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    key = os.environ.get('KEY')
+    u_key = request.form['key']
+
+    if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != key:
+        return flask.render_template('main/403.html'), 403
+
     file = request.files['file']
     new = Base(file_name=file.filename, version_code=request.form['v_code'], data=file.read())
     db.session.add(new)
