@@ -45,12 +45,13 @@ Update APK file
 
 </style>
 <div class="elm">
-    <form action="/load" enctype="multipart/form-data" method="POST">
+    <form action="/upload" enctype="multipart/form-data" method="POST">
         <p>ONLY FOR DEV</p>
         <input class="inp" name="file" type="file"/>
         <br><input class="inp" name="key" placeholder="Write key" style="">
         <br><input class="inp" name="v_code" placeholder="Write version code">
         <br><input class="inp" type="submit"/>
+        <br><p style="font-size: 1em; ">{{ result }}</p>
     </form>
 </div>
 </html>
