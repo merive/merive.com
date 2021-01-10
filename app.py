@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///merive.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 
@@ -36,7 +37,7 @@ def links():
 # noinspection PyUnusedLocal
 @app.errorhandler(404)
 def page_not_found(e):
-    return flask.render_template('main/404.html'), 404
+    return flask.render_template('main/error.html', error_code="404", error_text="Something went wrong, 404..."), 404
 
 
 # Press1MTimes code
@@ -67,7 +68,7 @@ def upload():
     u_key = request.form['key']
 
     if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != key:
-        return flask.render_template('main/403.html'), 403
+        return flask.render_template('main/error.html', error_code="403", error_text="Access is denied, 403..."), 403
 
     file = request.files['file']
     new = Base(file_name=file.filename, version_code=request.form['v_code'], data=file.read())
