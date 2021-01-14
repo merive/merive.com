@@ -6,8 +6,10 @@ import flask
 from flask import Flask, request, send_file
 from flask_sqlalchemy import SQLAlchemy
 
+from werkzeug.exceptions import HTTPException
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///merive.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -34,10 +36,9 @@ def links():
     return flask.render_template('main/links.html')
 
 
-# noinspection PyUnusedLocal
-@app.errorhandler(404)
-def page_not_found(e):
-    return flask.render_template('main/error.html', error_code="404", error_text="Something went wrong, 404..."), 404
+@app.errorhandler(HTTPException)
+def error_handler(e):
+    return flask.render_template('main/error.html', error_code=e.code, error_text=f'Oops, {e.code}...'), e.code
 
 
 # Press1MTimes code
@@ -85,4 +86,4 @@ def download():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

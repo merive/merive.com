@@ -16,6 +16,8 @@ Press1MTimes
 
         font-size: 4em;
         color: #C82A1E;
+
+        padding: 10% 0% 10% 0%;
     }
 
     .btn {
@@ -26,7 +28,7 @@ Press1MTimes
         transform: translate(-50%, -50%);
     }
 
-    .ecl1 {     
+    .ecl1 {
         /* Ellipse 1 */
         width: 14em;
         height: 14em;
@@ -39,7 +41,7 @@ Press1MTimes
         -webkit-text-stroke: 5px #2C2C2C;
     }
 
-    .ecl2 { 
+    .ecl2 {
         /* Set position */
         position: absolute;
         top: 50%;
@@ -97,15 +99,17 @@ Press1MTimes
 
 </style>
 <main>
-    <p class="title">Press 1M Times</p>
-    <div class="btn">
-        <div class="ecl1">
-            <div class="ecl2">
-                <a class="text" href="/download">DOWNLOAD</a>
+    <div>
+        <p class="title">Press 1M Times</p>
+        <div class="btn">
+            <div class="ecl1">
+                <div class="ecl2">
+                    <a class="text" href="/download">DOWNLOAD</a>
+                </div>
             </div>
         </div>
+        <p class="version">Actual version: <i>{{ version }}</i></p>
     </div>
-    <p class="version">Actual version: <i>{{ version }}</i></p>
 </main>
 </html>
 {% endblock %}

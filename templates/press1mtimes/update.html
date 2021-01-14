@@ -8,11 +8,10 @@ Update APK file
 <html>
 <style>
     p {
-        margin-left: 10px;
         font-size: 3em;
     }
 
-    .elm {
+    .form {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -30,7 +29,7 @@ Update APK file
 	  	border-color: #333;
 
         width: 18em;
-        height: 4em; 
+        height: 4em;
 
         padding: 12px;
         padding-bottom: 8px;
@@ -44,14 +43,15 @@ Update APK file
 }
 
 </style>
-<div class="elm">
+<div class="form">
     <form action="/upload" enctype="multipart/form-data" method="POST">
         <p>ONLY FOR DEV</p>
         <input class="inp" name="file" type="file"/>
         <br><input class="inp" name="key" placeholder="Write key" style="">
         <br><input class="inp" name="v_code" placeholder="Write version code">
         <br><input class="inp" type="submit"/>
-        <br><p style="font-size: 1em; ">{{ result }}</p>
+        <br>
+        <p style="font-size: 1em; ">{{ result }}</p>
     </form>
 </div>
 </html>
