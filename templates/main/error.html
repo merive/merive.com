@@ -1,7 +1,7 @@
 {% extends 'bases/base.html' %}
 
 {% block title %}
-Home
+{{ error_code }}
 {% endblock %}
 
 {% block body %}
@@ -22,9 +22,6 @@ Home
 </style>
 
 <main>
-    <p>
-        Welcome to my site. Explore.
-    </p>
+    <p>{{ error_text }}</p>
 </main>
 {% endblock %}
-

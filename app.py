@@ -1,15 +1,18 @@
 import hashlib
 import os
-from os import listdir
+from io import BytesIO
 
 import flask
-from flask import Flask, request
-from werkzeug.utils import secure_filename
+from flask import Flask, request, send_file
+from flask_sqlalchemy import SQLAlchemy
+
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'files/'
-version = listdir("files/")[0][4:-4] if listdir("files/")[0][10:] == ".apk" and listdir("files/")[0][:3] == "app" \
-    else listdir("files/")[0]
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 
 @app.route('/')
@@ -33,15 +36,16 @@ def links():
     return flask.render_template('main/links.html')
 
 
+@app.errorhandler(HTTPException)
+def error_handler(e):
+    return flask.render_template('main/error.html', error_code=e.code, error_text=f'Oops, {e.code}...'), e.code
+
+
+# Press1MTimes code
 @app.route('/press1mtimes')
 def press1mtimes():
-    return flask.render_template('press1mtimes/home.html', version=version)
-
-
-@app.route('/download', methods=['GET'])
-def download():
-    file = listdir("files/")
-    return flask.send_from_directory(directory='files', filename=str(file[0]), as_attachment=True)
+    return flask.render_template('press1mtimes/home.html',
+                                 version=db.session.query(Base).order_by(Base.id.desc()).first().version_code)
 
 
 @app.route('/update')
@@ -49,39 +53,36 @@ def update():
     return flask.render_template('press1mtimes/update.html')
 
 
-@app.route('/load', methods=['POST'])
-def load():
-    if request.method != 'POST':
-        return
+class Base(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    file_name = db.Column(db.String(15), unique=True, nullable=False)
+    version_code = db.Column(db.String(6), unique=True, nullable=False)
+    data = db.Column(db.LargeBinary, nullable=False)
+
+    def __repr__(self):
+        return '<Base %r>' % self.id
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
     key = os.environ.get('KEY')
     u_key = request.form['key']
 
     if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != key:
-        return "Wrong password."
+        return flask.render_template('main/error.html', error_code="403", error_text="Access is denied, 403..."), 403
 
-    f = request.files['file']
-    global version
-    filename = secure_filename(f.filename)
-    if filename[10:] == ".apk" and filename[:3] == "app":
-        if request.form['v_code'] != "":
-            version = request.form['key']
-        else:
-            version = filename[4:-4]
-    else:
-        return "Wrong file name..."
+    file = request.files['file']
+    new = Base(file_name=file.filename, version_code=request.form['v_code'], data=file.read())
+    db.session.add(new)
+    db.session.commit()
 
-    files = listdir("files/")
-    for file in files:
-        os.remove(f'files/{file}')
-    f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-    return flask.render_template('press1mtimes/home.html', version=version)
+    return flask.render_template('press1mtimes/update.html', result="File has been uploaded successfully.")
 
 
-# noinspection PyUnusedLocal
-@app.errorhandler(404)
-def page_not_found(e):
-    return flask.render_template('main/404.html'), 404
+@app.route('/download')
+def download():
+    file_data = db.session.query(Base).order_by(Base.id.desc()).first()
+    return send_file(BytesIO(file_data.data), attachment_filename=file_data.file_name, as_attachment=True)
 
 
 if __name__ == "__main__":
