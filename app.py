@@ -5,7 +5,6 @@ from io import BytesIO
 import flask
 from flask import Flask, request, send_file
 from flask_sqlalchemy import SQLAlchemy
-
 from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
@@ -47,45 +46,56 @@ def press1mtimes():
                                  version=db.session.query(DataBase).order_by(DataBase.id.desc()).first().version_code)
 
 
+@app.route('/press1mtimes/download')
+def download_p1mt():
+    file_data = DataBase.query.filter_by(project="Press1MTimes").first()
+    return send_file(BytesIO(file_data.data), attachment_filename=file_data.file_name, as_attachment=True)
+
+
+# DataBase code
+class DataBase(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    file_name = db.Column(db.String(15), unique=False, nullable=False)
+    version_code = db.Column(db.String(6), unique=False, nullable=False)
+    project = db.Column(db.String(20), unique=False, nullable=False)
+    data = db.Column(db.LargeBinary, nullable=False)
+
+    def __repr__(self):
+        return '<DataBase %r>' % self.id
+
+
 @app.route('/update')
 def update():
     return flask.render_template('main/update.html')
 
 
-class DataBase(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    file_name = db.Column(db.String(15), unique=False, nullable=False)
-    version_code = db.Column(db.String(6), unique=True, nullable=False)
-    project = db.Column(db.String(20), unique=False, nullable=False)
-    data = db.Column(db.LargeBinary, nullable=False)
-
-    def __repr__(self):
-        return '<Base %r>' % self.id
-
-
 @app.route('/upload', methods=['POST'])
 def upload():
-    key = os.environ.get('KEY')
-    u_key = request.form['key']
+    check_hash(request.form['key'])
 
-    if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != key:
-        return flask.render_template('main/error.html', error_code="403", error_text="Access is denied, 403..."), 403
+    try:
+        delete_from_db(request.form['project'])
+    except AttributeError:
+        print("DataBase is empty")
 
-    file = request.files['file']
-
-    DataBase.query.filter_by(id=DataBase.query.filter_by(project=request.form['project']).first().id).delete()
-    new = DataBase(file_name=file.filename, version_code=request.form['v_code'], data=file.read(),
-                   project=request.form['project'])
-    db.session.add(new)
-    db.session.commit()
-
+    add_in_db(request.files['file'].filename, request.form['v_code'], request.files['file'].read(),
+              request.form['project'])
     return flask.render_template('main/update.html', result="File has been uploaded successfully.")
 
 
-@app.route('/press1mtimes/download')
-def download():
-    file_data = DataBase.query.filter_by(project="Press1MTimes").first()
-    return send_file(BytesIO(file_data.data), attachment_filename=file_data.file_name, as_attachment=True)
+def check_hash(u_key):
+    if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != os.environ.get('KEY'):
+        return flask.render_template('main/error.html', error_code="403", error_text="Access is denied, 403..."), 403
+
+
+def delete_from_db(project):
+    DataBase.query.filter_by(id=DataBase.query.filter_by(project=project).first().id).delete()
+
+
+def add_in_db(filename, version_code, data, project):
+    new = DataBase(file_name=filename, version_code=version_code, data=data, project=project)
+    db.session.add(new)
+    db.session.commit()
 
 
 if __name__ == "__main__":
