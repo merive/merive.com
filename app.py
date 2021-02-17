@@ -16,7 +16,6 @@ db = SQLAlchemy(app)
 
 
 @app.route('/')
-@app.route('/home')
 def home():
     return flask.render_template('main/home.html')
 
@@ -45,18 +44,19 @@ def error_handler(e):
 @app.route('/press1mtimes')
 def press1mtimes():
     return flask.render_template('press1mtimes/home.html',
-                                 version=db.session.query(Base).order_by(Base.id.desc()).first().version_code)
+                                 version=db.session.query(DataBase).order_by(DataBase.id.desc()).first().version_code)
 
 
 @app.route('/update')
 def update():
-    return flask.render_template('press1mtimes/update.html')
+    return flask.render_template('main/update.html')
 
 
-class Base(db.Model):
+class DataBase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    file_name = db.Column(db.String(15), unique=True, nullable=False)
+    file_name = db.Column(db.String(15), unique=False, nullable=False)
     version_code = db.Column(db.String(6), unique=True, nullable=False)
+    project = db.Column(db.String(20), unique=False, nullable=False)
     data = db.Column(db.LargeBinary, nullable=False)
 
     def __repr__(self):
@@ -72,16 +72,19 @@ def upload():
         return flask.render_template('main/error.html', error_code="403", error_text="Access is denied, 403..."), 403
 
     file = request.files['file']
-    new = Base(file_name=file.filename, version_code=request.form['v_code'], data=file.read())
+
+    DataBase.query.filter_by(id=DataBase.query.filter_by(project=request.form['project']).first().id).delete()
+    new = DataBase(file_name=file.filename, version_code=request.form['v_code'], data=file.read(),
+                   project=request.form['project'])
     db.session.add(new)
     db.session.commit()
 
-    return flask.render_template('press1mtimes/update.html', result="File has been uploaded successfully.")
+    return flask.render_template('main/update.html', result="File has been uploaded successfully.")
 
 
-@app.route('/download')
+@app.route('/press1mtimes/download')
 def download():
-    file_data = db.session.query(Base).order_by(Base.id.desc()).first()
+    file_data = DataBase.query.filter_by(project="Press1MTimes").first()
     return send_file(BytesIO(file_data.data), attachment_filename=file_data.file_name, as_attachment=True)
 
 
