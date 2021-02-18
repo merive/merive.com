@@ -1,0 +1,74 @@
+{% extends 'bases/mtools_base.html' %}
+
+{% block title %}
+MTools
+{% endblock %}
+
+{% block body %}
+<html>
+<style>
+    .title {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 4em;
+        color: #BBE1FA;
+
+        padding: 10% 0% 10% 0%;
+        }
+
+    .btns {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .btn {
+        border: solid 2px #BBE1FA;
+        padding: 15px 32px;
+        background: #1A2A33;
+        color: #BBE1FA;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 8px 2px;
+
+        width: 16em;
+        height: 4em;
+    }
+
+    .btn:hover {
+        background: #BBE1FA;
+        color: #1A2A33;
+        border: solid 2px #1A2A33;
+    }
+
+    .version {
+        position: absolute;
+        bottom: 0%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 1.5em;
+        color: #BBE1FA;
+    }
+</style>
+<main>
+    <div>
+        <p class="title">MTools</p>
+        <div class="btns">
+            <button class="btn">Download for Windows</button>
+            <br><button class="btn">Download for Linux</button>
+            <br><button class="btn">Download for MacOS</button>
+        </div>
+        <p class="version">Actual version: <i>{{ version }}</i></p>
+    </div>
+</main>
+</html>
+{% endblock %}

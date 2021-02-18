@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] =  os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -42,14 +42,21 @@ def error_handler(e):
 # Press1MTimes code
 @app.route('/press1mtimes')
 def press1mtimes():
-    return flask.render_template('press1mtimes/home.html',
-                                 version=db.session.query(DataBase).order_by(DataBase.id.desc()).first().version_code)
+    data = DataBase.query.filter_by(project="Press1MTimes").first()
+    return flask.render_template('press1mtimes/home.html', version=data.version_code)
 
 
 @app.route('/press1mtimes/download')
 def download_p1mt():
-    file_data = DataBase.query.filter_by(project="Press1MTimes").first()
-    return send_file(BytesIO(file_data.data), attachment_filename=file_data.file_name, as_attachment=True)
+    data = DataBase.query.filter_by(project="Press1MTimes").first()
+    return send_file(BytesIO(data.data), attachment_filename=data.file_name, as_attachment=True)
+
+
+# MTools code
+@app.route('/mtools')
+def mtools():
+    data = DataBase.query.filter_by(project="MTools").first()
+    return flask.render_template('mtools/home.html', version=data.version_code)
 
 
 # DataBase code
@@ -99,4 +106,4 @@ def add_in_db(filename, version_code, data, project):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
