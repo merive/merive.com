@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] =  os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -59,12 +59,19 @@ def mtools():
     return flask.render_template('mtools/home.html', version=data.version_code)
 
 
+@app.route('/mtools/download/<platform>')
+def download_mtools(platform: str):
+    data = DataBase.query.filter_by(project="MTools", platform=platform).first()
+    return send_file(BytesIO(data.data), attachment_filename=data.file_name, as_attachment=True)
+
+
 # DataBase code
 class DataBase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(15), unique=False, nullable=False)
     version_code = db.Column(db.String(6), unique=False, nullable=False)
     project = db.Column(db.String(20), unique=False, nullable=False)
+    platform = db.Column(db.String(10), unique=False, nullable=True)
     data = db.Column(db.LargeBinary, nullable=False)
 
     def __repr__(self):
@@ -86,7 +93,7 @@ def upload():
         print("DataBase is empty")
 
     add_in_db(request.files['file'].filename, request.form['v_code'], request.files['file'].read(),
-              request.form['project'])
+              request.form['project'], request.form['platform'])
     return flask.render_template('main/update.html', result="File has been uploaded successfully.")
 
 
@@ -99,8 +106,8 @@ def delete_from_db(project):
     DataBase.query.filter_by(id=DataBase.query.filter_by(project=project).first().id).delete()
 
 
-def add_in_db(filename, version_code, data, project):
-    new = DataBase(file_name=filename, version_code=version_code, data=data, project=project)
+def add_in_db(filename, version_code, data, project, platform):
+    new = DataBase(file_name=filename, version_code=version_code, data=data, project=project, platform=platform)
     db.session.add(new)
     db.session.commit()
 
