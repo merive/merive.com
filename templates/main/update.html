@@ -1,7 +1,7 @@
-{% extends 'bases/p1mt_base.html' %}
+{% extends 'bases/base.html' %}
 
 {% block title %}
-Update APK file
+Update file
 {% endblock %}
 
 {% block body %}
@@ -9,22 +9,20 @@ Update APK file
 <style>
     p {
         font-size: 3em;
+        color: #2C2C2C;
+
     }
 
     .form {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-
+        text-align: center;
+        margin-top: 0.5em;
         color: #C82A1E;
     }
 
     .inp {
         color: #2C2C2C;
-        background-color: #C82A1E;
-        border: 0.3em  solid #000;
+        background-image: linear-gradient(to right, #286334, #327a70);
+        border: 0.3em solid #000;
 	  	border-radius: 8px;
 	  	border-color: #333;
 
@@ -42,6 +40,7 @@ Update APK file
     }
 }
 
+
 </style>
 <div class="form">
     <form action="/upload" enctype="multipart/form-data" method="POST">
@@ -49,6 +48,8 @@ Update APK file
         <input class="inp" name="file" type="file"/>
         <br><input class="inp" name="key" placeholder="Write key" style="">
         <br><input class="inp" name="v_code" placeholder="Write version code">
+        <br><input class="inp" name="project" placeholder="Write project name">
+        <br><input class="inp" name="platform" placeholder="Write platform">
         <br><input class="inp" type="submit"/>
         <br>
         <p style="font-size: 1em; ">{{ result }}</p>

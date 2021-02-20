@@ -12,10 +12,9 @@
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" rel="stylesheet">
     <!-- Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Sans" />
     <!-- Set icon -->
-    <link href="{{ url_for('static', filename='p1mt_icon.ico') }}" rel="shortcut icon">
+    <link href="{{ url_for('static', filename='mtools_icon.ico') }}" rel="shortcut icon">
 </head>
 <body>
 <!-- Bootstrap -->
@@ -28,9 +27,9 @@
 
 <style>
     body {
-        background: #2C2C2C;
-        
-        font-family: 'Poppins', sans-serif;
+        background-image: linear-gradient(to left, #1A2A33, #0F4B72);
+
+        font-family: "Droid Sans";
         font-size: 16px;
 
         padding-top: 70px;
@@ -45,27 +44,27 @@
     }
 
     body::-webkit-scrollbar-thumb {
-        background: #C82A1E;
+        background: #1A2A33;
     }
 
     body::-webkit-scrollbar-hover {
-        background: #C82A1E;
+        background: #1A2A33;
     }
 
 </style>
 
 <nav class="navbar fixed-top navbar-dark" style="background-color: #333;">
     <div class="container-fluid">
-        <a class="navbar-brand" style="color: #C82A1E; !important;" href="/press1mtimes">Press1MTimes</a>
+        <a class="navbar-brand" style="color: #BBE1FA !important;" href="/mtools">MTools</a>
         <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
-                class="navbar-toggler" style="color: #C82A1E; !important;" data-bs-target="#navbarNavAltMarkup" data-bs-toggle="collapse"
+                class="navbar-toggler" style="color: #BBE1FA !important;" data-bs-target="#navbarNavAltMarkup" data-bs-toggle="collapse"
                 type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" style="color: #C82A1E; !important;" href="https://github.com/merive/Press1MTimes">GitHub</a>
-                <a class="nav-link" style="color: #C82A1E; !important;" href="/">Back</a>
+                <a class="nav-link" style="color: #BBE1FA !important;" href="https://github.com/merive/MTools">GitHub</a>
+                <a class="nav-link" style="color: #BBE1FA !important;" href="/">Back</a>
             </div>
         </div>
     </div>
