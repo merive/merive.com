@@ -88,7 +88,7 @@ def upload():
     check_hash(request.form['key'])
 
     try:
-        delete_from_db(request.form['project'])
+        delete_from_db(request.form['project'], request.form['platform'])
     except AttributeError:
         print("DataBase is empty")
 
@@ -102,8 +102,8 @@ def check_hash(u_key):
         return flask.render_template('main/error.html', error_code="403", error_text="Access is denied, 403..."), 403
 
 
-def delete_from_db(project):
-    DataBase.query.filter_by(id=DataBase.query.filter_by(project=project).first().id).delete()
+def delete_from_db(project, platform):
+    DataBase.query.filter_by(id=DataBase.query.filter_by(project=project, platform=platform).first().id).delete()
 
 
 def add_in_db(filename, version_code, data, project, platform):
