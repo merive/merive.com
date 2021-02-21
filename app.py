@@ -70,7 +70,7 @@ class DataBase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(15), unique=False, nullable=False)
     version_code = db.Column(db.String(6), unique=False, nullable=False)
-    project = db.Column(db.String(20), unique=False, nullable=False)
+    project = db.Column(db.String(30), unique=False, nullable=False)
     platform = db.Column(db.String(10), unique=False, nullable=True)
     data = db.Column(db.LargeBinary, nullable=False)
 
