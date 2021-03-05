@@ -6,11 +6,15 @@ Home
 
 {% block body %}
 <main>
-    <p>
-        Welcome to <b>merive_'s</b> site.
-        <br>There you can discover about me, my projects and much more.
-        <br>Explore!
-    </p>
+    <div class="background">
+        <div class="content">
+            <p>
+                Welcome to <b>merive_'s</b> site.
+                <br>There you can discover about me, my projects and much more.
+                <br>Explore!
+            </p>
+        </div>
+    </div>
 </main>
 
 <style>
@@ -21,20 +25,27 @@ Home
 
     p {
         font-size: 2em;
-        width: 90%;
         text-align: center;
         vertical-align: middle;
 
-        border: black solid 5px;
-        border-radius: 5px;
-        background: #333;
-
         color: #218b5f;
+    }
 
+    .background {
         position: absolute;
     	top: 50%;
     	left: 50%;
     	transform: translateX(-50%) translateY(-50%);
+    	width: 90%;
+
+        border: black solid 5px;
+        border-radius: 10px;
+        background: #333;
+   }
+
+    .content {
+        color: #218b5f;
+        margin: 0.5em 0.5em 0.5em 0.5em;
     }
 </style>
 {% endblock %}
