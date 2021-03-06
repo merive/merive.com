@@ -1,18 +1,14 @@
 {% extends 'bases/main.html' %}
 
 {% block title %}
-Home
+Error {{ error_code }}
 {% endblock %}
 
 {% block body %}
 <main>
     <div class="background">
         <div class="content">
-            <p>
-                Welcome to <b>merive_'s</b> site.
-                <br>There you can discover about me, my projects and much more.
-                <br>Explore!
-            </p>
+            <p>Something went wrong, {{ error_code }}</p>
         </div>
     </div>
 </main>
@@ -41,7 +37,7 @@ Home
         border: black solid 5px;
         border-radius: 10px;
         background: #333;
-    }
+   }
 
     .content {
         color: #218b5f;
