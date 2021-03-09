@@ -7,10 +7,12 @@ Press1MTimes
 {% block body %}
 <main>
     <p class="title">Press 1M Times</p>
-    <div class="btn">
-        <div class="btn ecl1">
-            <div class="btn ecl2">
-                <a class="btn text" href="/press1mtimes/download">DOWNLOAD</a>
+    <div class="content" style="width: 100%">
+        <div class="btn">
+            <div class="btn ecl1">
+                <div class="btn ecl2">
+                    <a class="btn text" href="/press1mtimes/download">DOWNLOAD</a>
+                </div>
             </div>
         </div>
     </div>
@@ -24,19 +26,25 @@ Press1MTimes
 
         width: 100%;
         text-align: center;
-        vertical-align:middle;
-        padding-top: 5%;
+        vertical-align: middle;
+        margin-top: 3%;
     }
 
     .btn {
         position: absolute;
-        top: 65%;
+        top: 70%;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
     }
 
     .ecl1 {
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
         /* Ellipse 1 */
         width: 14em;
         height: 14em;
@@ -50,7 +58,6 @@ Press1MTimes
     }
 
     .ecl2 {
-        /* Set position */
         position: absolute;
         top: 50%;
         left: 50%;
@@ -68,7 +75,6 @@ Press1MTimes
     }
 
     .text {
-        /* Set position */
         position: absolute;
         top: 50%;
         left: 50%;
@@ -96,10 +102,10 @@ Press1MTimes
 
     .version {
         position: absolute;
-        bottom: 0%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
+        bottom: -1%;
+        left: 0;
+        width: 100%;
+        text-align: center;
 
         width: 100%;
         text-align: center;
@@ -107,8 +113,6 @@ Press1MTimes
 
         font-size: 1.5em;
         color: #C82A1E;
-
-        margin-top: 10%;
     }
 </style>
 {% endblock %}

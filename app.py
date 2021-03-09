@@ -63,8 +63,8 @@ class P1MTBase(db.Model):
 
 @app.route('/P1MT')
 def press1mtimes():
-    data = P1MTBase.query.filter_by().first()
-    return flask.render_template('P1MT/home.html', version=data.version_code)
+    # data = P1MTBase.query.filter_by().first()
+    return flask.render_template('P1MT/home.html')
 
 
 @app.route('/press1mtimes/download')
