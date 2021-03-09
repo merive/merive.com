@@ -1,0 +1,83 @@
+{% extends 'bases/Parzibot.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="content">
+        <p class="title">Parzibot</p>
+        <p style="font-size: 2.5em">Cool features, events and much more!</p>
+        <a class="btn" href="https://bit.ly/3t4htsW">Add on Discord server</a>
+        <p class="version">Actual version: v3.1.0</p>
+    </div>
+</main>
+
+<style>
+    main {
+        color: black;
+    }
+
+    .content {
+        text-align: center;
+        margin-top: 0.5em;
+    }
+
+    .title {
+        width: 100%;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 1%;
+
+        font-size: 4em;
+        color: #000;
+    }
+
+
+    .btn {
+        position: absolute;
+        top: 63%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        border: black 4px solid;
+        background-image: linear-gradient(45deg, #ac40c0, #1fe983);
+        color: #000;
+        font-size: 1em;
+        text-align: center;
+
+        width: 20em;
+        height: 4em;
+
+        padding: 1em;
+        margin: 1em auto;
+
+        padding: 1em 1em 1em 1em;
+    }
+
+    .btn:hover {
+        background: #111;
+        color: #52ac99;
+        border: solid 4px #52ac99;
+    }
+
+
+    .version {
+        position: absolute;
+        bottom: 0%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 1.5em;
+        color: #000;
+
+        width: 100%;
+        text-align: center;
+        vertical-align:middle;
+    }
+
+</style>
+{% endblock %}

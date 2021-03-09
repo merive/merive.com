@@ -137,6 +137,12 @@ def upload_mtools():
     return flask.render_template('MTools/update.html', result="File has been uploaded successfully.")
 
 
+# Parzibot code
+@app.route('/Parzibot')
+def parzibot():
+    return flask.render_template('Parzibot/home.html')
+
+
 def check_hash(u_key):
     if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != os.environ.get('KEY'):
         return flask.render_template('main/error.html'), 403
