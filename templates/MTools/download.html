@@ -1,0 +1,79 @@
+{% extends 'bases/MTools.html' %}
+
+{% block title %}
+MTools
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="content">
+        <p class="title">Download</p>
+        <div class="btns">
+            <a class="btn" href="/MTools/download/EXE">Download Execute file</a>
+            <br><a class="btn" href="/MTools/download/JAR">Download JAR file</a>
+        </div>
+        <p class="version">Actual version: <i>{{ version }}</i></p>
+    </div>
+</main>
+
+<style>
+    .title {
+        width: 100%;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 3%;
+
+        font-size: 4em;
+        color: #BBE1FA;
+    }
+
+    .content {
+        text-align: center;
+        margin-top: 0.5em;
+    }
+
+    .btns {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .btn {
+        border: solid 2px #BBE1FA;
+        background: #1A2A33;
+        color: #BBE1FA;
+        font-size: 1em;
+        text-align: center;
+
+        width: 16em;
+        height: 4em;
+
+        padding: 1em;
+        margin: 1em auto;
+    }
+
+    .btn:hover {
+        background: #BBE1FA;
+        color: #1A2A33;
+        border: solid 2px #1A2A33;
+    }
+
+    .version {
+        position: absolute;
+        bottom: 0%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 1.5em;
+        color: #BBE1FA;
+
+        width: 100%;
+        text-align: center;
+        vertical-align:middle;
+    }
+
+</style>
+{% endblock %}

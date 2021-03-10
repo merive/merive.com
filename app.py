@@ -114,12 +114,17 @@ class MToolsBase(db.Model):
 
 @app.route('/MTools')
 def mtools():
+    return flask.render_template('MTools/home.html')
+
+
+@app.route("/MTools/download")
+def download_mtools():
     data = MToolsBase.query.filter_by().first()
-    return flask.render_template('MTools/home.html', version=data.version_code)
+    return flask.render_template('MTools/download.html', version=data.version_code)
 
 
-@app.route('/mtools/download/<file_type>')
-def download_mtools(file_type: str):
+@app.route('/MTools/download/<file_type>')
+def save_mtools(file_type: str):
     data = MToolsBase.query.filter_by(file_type=file_type).first()
     return send_file(BytesIO(data.data), attachment_filename=data.file_name, as_attachment=True)
 
