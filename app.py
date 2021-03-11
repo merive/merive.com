@@ -145,7 +145,7 @@ def upload_mtools():
 # Parzibot code
 @app.route('/Parzibot')
 def parzibot():
-    return flask.render_template('Parzibot/home.html')
+    return flask.render_template('Parzibot/home.html', link=os.environ.get('ParzibotLink'))
 
 
 def check_hash(u_key):
