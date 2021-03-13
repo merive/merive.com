@@ -135,15 +135,18 @@ def mtools():
     return flask.render_template('MTools/home.html')
 
 
+@app.route('/MTools/download')
+def download_mtools():
+    data = MToolsBase.query.filter_by().first()
+    return flask.render_template('MTools/download.html', version=data.version_code)
+
+
+
 @app.route('/MTools/download/<file_type>')
-def download_mtools(file_type=""):
+def save_mtools(file_type):
     """Saves MTools files on your PC"""
-    if file_type == "":
-        data = MToolsBase.query.filter_by().first()
-        return flask.render_template('MTools/download.html', version=data.version_code)
-    else:
-        data = MToolsBase.query.filter_by(file_type=file_type).first()
-        return send_file(BytesIO(data.data), attachment_filename=data.file_name, as_attachment=True)
+    data = MToolsBase.query.filter_by(file_type=file_type).first()
+    return send_file(BytesIO(data.data), attachment_filename=data.file_name, as_attachment=True)
 
 
 @app.route('/MTools/update')
