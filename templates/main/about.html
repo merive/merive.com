@@ -1,107 +1,110 @@
-{% extends 'bases/base.html' %}
+{% extends 'bases/main.html' %}
 
 {% block title %}
 About
 {% endblock %}
 
 {% block body %}
+<main>
+    <div class="background">
+        <div class="content">
+            <h2 class="label"><b>Start</b></h2>
+            <p>
+                Hello, I'm Max aka merive_, I'm programmer.
+                I write on Python, Java, HTML/CSS, C/Assembler, etc.
+                I don’t remember how it all began, but I came to programming in the summer of 2019, then I began to
+                study Python...
+            </p>
+            <h2 class="label"><b>Python</b></h2>
+            <p>
+                Python is good language, simple, powerful and cool syntax.
+                I started writing Python code in June 2019.
+                Now, I know more 15 libraries, I write code on this language everyday.
+                I was not wrong with the choice then.
+            </p>
+            <h2 class="label"><b>HTML/CSS</b></h2>
+            <p>
+                HTML and CSS is a hard for me.
+                I am more of a mathematician than an artist.
+                I started learning HTML and CSS in August, 2019.
+                You can seeing my work on HTML/CSS.
+                I hope, you like it.
+            </p>
+            <h2 class="label"><b>Java</b></h2>
+            <p>
+                Java is a cool language.
+                Powerful, Interesting, Understandable.
+                I started learning Java in January 2020.
+                Now, I do more cool things on this language (Android apps, Software and much more)
+            </p>
+            <h2 class="label"><b>Linux & Bash</b></h2>
+            <p>
+                I met with Linux in October, 2020.
+                Now, Linux Distributions is most liked OS.
+                I like privacy, freedom and all advantages of Linux.
+                And Linux Bash is cool thing for programmer.
+            </p>
+            <h2 class="label"><b>C/Assembler</b></h2>
+            <p>
+                I started study C/Assembler as cool theme for ethnic hacking in November, 2020.
+                C/Assembler is hard languages, but interesting.
+                I little write on this languages, but I think to do cool programs on C/Assembler.
+            </p>
+            <h2 class="label"><b>Now</b></h2>
+            <p>
+                Now, Programming is part of my life.
+                Everyday I write code, this is my hobby, my work and narcotic.
+                I will be make cool things, study more theme, languages.
+                I like code and all and all the related things with him.
+            </p>
+        </div>
+    </div>
+</main>
+
 <style>
     main {
-        padding-left: 10%;
-        padding-right: 10%;
-        padding-top: 2%;
-        padding-bottom: 1%;
+        display: flex;
+        flex-direction: column;
+
+        padding-left: 7%;
+        padding-right: 7%;
+        padding-bottom: 0.75em;
     }
 
-    a {
-        font-family: 'Orbitron', sans-serif;
-        color: black;
-        text-decoration: none;
+    .background {
+        border: black solid 5px;
+        border-radius: 10px;
+        background: #333;
+    }
+
+    .content {
+        color: #218b5f;
+        margin: 0.5em 0.5em 0.5em 0.5em;
     }
 
     p {
         font-size: 1.5em;
-        color: #111;
+        color: #218b5f;
     }
 
-    b {
+    a {
         font-family: 'Orbitron', sans-serif;
-        color: black;
+        color: #218b5f;
+        text-decoration: none;
     }
 
+    a:hover {
+        color: #218b5f;
+        text-decoration: none;
+    }
+
+    a:active {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .label {
+        font-family: 'Orbitron', sans-serif;
+    }
 </style>
-
-<main>
-    <h2><b>Start</b></h2>
-    <p>
-        Hello, I'm Max aka merive_, I'm programmer.
-
-        I write in Python, Java, HTML/CSS.
-
-        Started learning C, Assembler, Bash.
-
-        I've been programming for over a year now.
-
-        I don’t remember how it all began,
-        but I came to programming in the summer of 2019,
-        then I began to study Python...
-    </p>
-    <h2><b>Python</b></h2>
-    <p>
-        I know python and its libraries (namely more than 15)
-        for over a year.
-
-        I loved this language from the very beginning.
-    </p>
-    <h2><b>HTML/CSS</b></h2>
-    <p>
-        My acquaintance with HTML began during the study of Python &
-        I did not like it, it was not clear to me.
-
-        Later, when I began to delve into it,
-        I realized how easy and useful it is.
-
-        There were no problems with the CSS & I quickly studied it...
-    </p>
-    <h2><b>Java</b></h2>
-    <p>
-        I have wanted to learn Java for a long time.
-
-        I started learning this language at the beginning of 2020.
-
-        I am currently making GUI apps and Android apps.
-
-        I really like to write in this language.
-    </p>
-    <h2><b>Linux & Bash</b></h2>
-    <p>
-        I recently became familiar with Linux.
-
-        I have a very positive experience with this OS,
-        primarily because of bash.
-
-        I really enjoy working in it.
-    </p>
-    <h2><b>C/Assembler</b></h2>
-    <p>
-        I became interested in exploits,
-        and that's how I got to know C & Assambler.
-
-        C is easy for me as I am familiar with similar languages.
-
-        But we are not very familiar with Assembler yet.
-    </p>
-    <h2><b>Now</b></h2>
-    <p>
-        Now programming is part of my life,
-        just a year ago I was just thinking of becoming a programmer,
-        and now I am one.
-
-        I like what i do.
-
-        Every day I do something, study.
-
-        Programming has opened a new world for me...
-    </p>
-</main>
 {% endblock %}

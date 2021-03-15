@@ -1,0 +1,48 @@
+{% extends 'bases/Parzibot.html' %}
+
+{% block title %}
+Parzibot
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="content">
+        <p class="title">Parzibot</p>
+        <p class="text">
+            Cool Discord bot for your Discord server.
+            <br>A lot of functions, events, custom language for any user, and much more!
+            <br>Add Bot on Server now and use always!
+        </p>
+    </div>
+</main>
+
+<style>
+    main {
+        color: black;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .title {
+        width: 100%;
+        text-align: center;
+        vertical-align:middle;
+        padding-top: 5%;
+
+        font-size: 4em;
+        color: #000;
+    }
+
+    .text {
+        width: 100%;
+        font-size: 2em;
+        margin: 5% 5% 5% 5%;
+
+        border: black 4px solid;
+        background-image: linear-gradient(45deg, #ac40c0, #1fe983);
+        width: 90%;
+    }
+</style>
+{% endblock %}

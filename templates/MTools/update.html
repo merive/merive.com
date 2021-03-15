@@ -1,0 +1,56 @@
+{% extends 'bases/MTools.html' %}
+
+{% block title %}
+Update P1MT
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="form">
+        <form action="/MTools/upload" enctype="multipart/form-data" method="POST">
+            <p>Update P1MT</p>
+            <input class="inp" name="file" type="file"/>
+            <br><input class="inp" name="key" placeholder="Write key">
+            <br><input class="inp" name="version_code" placeholder="Write version code">
+            <br><input class="inp" type="submit"/>
+            <p style="font-size: 1em; ">{{ result }}</p>
+        </form>
+    </div>
+</main>
+
+<style>
+    p {
+        font-size: 3em;
+        color: #BBE1FA;
+    }
+
+    .form {
+        text-align: center;
+        color: #C82A1E;
+
+        position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translateX(-50%) translateY(-50%);
+    }
+
+    .inp {
+        border: solid 2px #BBE1FA;
+        background: #1A2A33;
+        color: #BBE1FA;
+        font-size: 1em;
+
+        width: 18em;
+        height: 4em;
+
+        padding: 12px;
+        padding-bottom: 8px;
+        margin: 10px;
+    }
+
+    ::placeholder {
+        color: #BBE1FA;
+        opacity: 1;
+    }
+</style>
+{% endblock %}

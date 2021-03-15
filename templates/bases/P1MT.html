@@ -3,17 +3,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <title>
         {% block title %}{% endblock %}
     </title>
-    <!-- Bootstrap -->
+
+    <!--  Bootstrap CSS  -->
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" rel="stylesheet">
+
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
     <!-- Set favicon -->
     <link href="{{ url_for('static', filename='p1mt.ico') }}" rel="shortcut icon">
 </head>
@@ -26,10 +30,32 @@
         integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
 
+<!--  Navbar code  -->
+<nav class="navbar fixed-top navbar-dark" style="background-color: #333">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/P1MT" style="color: #C82A1E !important">Press1MTimes</a>
+        <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler" data-bs-target="#navbarNavAltMarkup" data-bs-toggle="collapse"
+                style="color: #C82A1E !important"
+                type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="https://github.com/merive/Press1MTimes" style="color: #C82A1E !important">GitHub</a>
+                <a class="nav-link" href="/" style="color: #C82A1E !important">Back</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+{% block body %}{% endblock %}
+</body>
 <style>
     body {
         background: #2C2C2C;
-        
+
         font-family: 'Poppins', sans-serif;
         font-size: 16px;
 
@@ -51,26 +77,5 @@
     body::-webkit-scrollbar-hover {
         background: #C82A1E;
     }
-
 </style>
-
-<nav class="navbar fixed-top navbar-dark" style="background-color: #333;">
-    <div class="container-fluid">
-        <a class="navbar-brand" style="color: #C82A1E; !important;" href="/press1mtimes">Press1MTimes</a>
-        <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
-                class="navbar-toggler" style="color: #C82A1E; !important;" data-bs-target="#navbarNavAltMarkup"
-                data-bs-toggle="collapse"
-                type="button">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link" style="color: #C82A1E; !important;" href="https://github.com/merive/Press1MTimes">GitHub</a>
-                <a class="nav-link" style="color: #C82A1E; !important;" href="/">Back</a>
-            </div>
-        </div>
-    </div>
-</nav>
-{% block body %}{% endblock %}
-</body>
 </html>

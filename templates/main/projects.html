@@ -1,84 +1,100 @@
-{% extends 'bases/base.html' %}
+{% extends 'bases/main.html' %}
 
 {% block title %}
 Projects
 {% endblock %}
 
 {% block body %}
+
+<main>
+    <div class="background">
+        <div class="content">
+            <h2>
+                <b>
+                    <a href="/Parzibot">Parzibot</a>
+                </b>
+            </h2>
+            <p>
+                My own Discord Bot.
+                He has a lot of functions, events, error handlers and much more!
+                Recently, I made global update, where I added much cool features.
+                He got even better.
+            </p>
+
+            <h2>
+                <b>
+                    <a href="/MTools">MTools</a>
+                </b>
+            </h2>
+            <p>
+                Project of various utilities.
+                Unpretentious standard programs with an interesting design.
+                The project recently received an cool major update.
+                Utilities have been updated, a launcher has appeared and much more.
+            </p>
+
+            <h2>
+                <b>
+                    <a href="https://github.com/merive/merive.com">merive.com</a>
+                </b>
+            </h2>
+            <p>
+                This is the project you are on.
+                He is developing right now and will be developing with me.
+                This is my personal site.
+                On it you can get to know me better.
+            </p>
+
+            <h2>
+                <b>
+                    <a href="/P1MT">Press1MTimes (P1MT)</a>
+                </b>
+            </h2>
+            <p>
+                A cool Android clicker with a cool update coming soon.
+                A simple game in which the main task is to find out what happens after a million clicks on the red
+                button...
+                Cool project with cool design and idea.
+            </p>
+        </div>
+    </div>
+</main>
+
 <style>
-    main {
+     main {
         display: flex;
         flex-direction: column;
 
-        padding-left: 10%;
-        padding-right: 10%;
-        padding-top: 2%;
-        padding-bottom: 1%;
+        padding-left: 7%;
+        padding-right: 7%;
+        padding-bottom: 0.75em;
     }
+
+    .background {
+        border: black solid 5px;
+        border-radius: 10px;
+        background: #333;
+   }
+
+   .content {
+        color: #218b5f;
+        margin: 0.5em 0.5em 0.5em 0.5em;
+   }
 
     p {
         font-size: 1.5em;
-        color: #111;
+        color: #218b5f;
     }
 
     a {
         font-family: 'Orbitron', sans-serif;
-        color: black;
+        color: #218b5f;
         text-decoration: none;
     }
 
     a:hover {
-        color: #111;
+        color: #218b5f;
         text-decoration: none;
     }
-
-
 </style>
-
-<main>
-    <h2>
-        <b>
-            <a href="https://github.com/merive/Parzibot">Parzibot</a>
-        </b>
-    </h2>
-    <p>
-        This is my first major project.
-        Before this project name as AssistBOT, but recently I released global update for my bot.
-        This bot have a lot of functions, few events and much more!
-    </p>
-
-    <h2>
-        <b>
-            <a href="/mtools">MTools</a>
-        </b>
-    </h2>
-    <p>
-        My major project in Java.
-        In it, I collect my own set of utilities for different occasions.
-        I try to develop it as a cool idea.
-    </p>
-
-    <h2>
-        <b>
-            <a href="https://github.com/merive/merive.com">merive.com</a>
-        </b>
-    </h2>
-    <p>
-        This is the project you are on.
-        He is developing right now and will be developing with me.
-        This is my personal site.
-        On it you can get to know me better.
-    </p>
-
-    <h2>
-        <b>
-            <a href="/press1mtimes">Press 1M Times</a>
-        </b>
-    </h2>
-    <p>
-        Android Clicker-Game.
-        A simple game in which the main task is to find out what happens after a million clicks on the red button...
-        My first serious android app.
-    </p>
-</main>
 {% endblock %}

@@ -1,40 +1,57 @@
-{% extends 'bases/mtools.html' %}
+{% extends 'bases/MTools.html' %}
 
 {% block title %}
 MTools
 {% endblock %}
 
 {% block body %}
-<html>
+<main>
+    <div class="content">
+        <p class="title">Download</p>
+        <div class="btns">
+            <a class="btn" href="/MTools/download/EXE">Download Execute file</a>
+            <br><a class="btn" href="/MTools/download/JAR">Download JAR file</a>
+        </div>
+        <p class="version">Actual version: <i>{{ version }}</i></p>
+    </div>
+</main>
+
 <style>
     .title {
         width: 100%;
         text-align: center;
         vertical-align:middle;
-        padding-top: 5%;
+        padding-top: 3%;
 
         font-size: 4em;
         color: #BBE1FA;
-        }
+    }
+
+    .content {
+        text-align: center;
+        margin-top: 0.5em;
+    }
 
     .btns {
-        text-align: center;
-        vertical-align:middle;
-        width: 100%;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
     }
 
     .btn {
         border: solid 2px #BBE1FA;
-        padding: 15px 32px;
         background: #1A2A33;
         color: #BBE1FA;
+        font-size: 1em;
         text-align: center;
-        text-decoration: none;
-        font-size: 16px;
-        margin: 8px 2px;
 
         width: 16em;
         height: 4em;
+
+        padding: 1em;
+        margin: 1em auto;
     }
 
     .btn:hover {
@@ -52,22 +69,11 @@ MTools
 
         font-size: 1.5em;
         color: #BBE1FA;
-        
+
         width: 100%;
         text-align: center;
         vertical-align:middle;
     }
+
 </style>
-<main>
-    <div>
-        <p class="title">MTools</p>
-        <div class="btns">
-            <br><br><a href="/mtools/download/Windows" class="btn">Download for Windows</a>
-            <br><a href="/mtools/download/Linux" class="btn">Download for Linux</a>
-            <br><a href="/mtools/download/MacOS" class="btn">Download for MacOS</a>
-        </div>
-        <p class="version">Actual version: <i>{{ version }}</i></p>
-    </div>
-</main>
-</html>
 {% endblock %}
