@@ -77,7 +77,7 @@ def press1mtimes():
     return flask.render_template('P1MT/home.html', version=data.version_code)
 
 
-@app.route('/press1mtimes/download')
+@app.route('/P1MT/download')
 def download_p1mt():
     """Download P1MT page"""
     data = P1MTBase.query.filter_by().first()
