@@ -1,0 +1,61 @@
+{% extends 'bases/SecurePass.html' %}
+
+{% block title %}
+Update SecurePass
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="form">
+        <form action="/P1MT/upload" enctype="multipart/form-data" method="POST">
+            <p>Update SecurePass</p>
+            <input class="inp" name="file" type="file"/>
+            <br><input class="inp" name="key" placeholder="Write key">
+            <br><input class="inp" name="version_code" placeholder="Write version code">
+            <br><input class="inp" type="submit"/>
+            <p style="font-size: 1em; ">{{ result }}</p>
+        </form>
+    </div>
+</main>
+
+<style>
+    main {
+        padding-top: 5%;
+    }
+
+    p {
+        font-size: 3em;
+        color: #47ed87;
+    }
+
+    .form {
+        text-align: center;
+        color: #47ed87;
+
+        position: absolute;
+    	top: 50%;
+    	left: 50%;
+    	transform: translateX(-50%) translateY(-50%);
+    }
+
+    .inp {
+        color: #47ed87;
+        background: #4d4d4d;
+        border: 0.2em solid;
+	  	border-radius: 54px;
+	  	border-color: #47ed87;
+
+        width: 18em;
+        height: 4em;
+
+        padding: 12px;
+        padding-bottom: 8px;
+        margin: 12px;
+    }
+
+    ::placeholder {
+        color: #47ed87;
+        opacity: 1;
+    }
+</style>
+{% endblock %}

@@ -73,8 +73,11 @@ class P1MTBase(db.Model):
 @app.route('/P1MT')
 def press1mtimes():
     """P1MT page"""
-    data = P1MTBase.query.filter_by().first()
-    return flask.render_template('P1MT/home.html', version=data.version_code)
+    try:
+        data = P1MTBase.query.filter_by().first()
+        return flask.render_template('P1MT/home.html', version=data.version_code)
+    except AttributeError:
+        return flask.render_template('P1MT/home.html')
 
 
 @app.route('/P1MT/download')
@@ -137,9 +140,11 @@ def mtools():
 
 @app.route('/MTools/download')
 def download_mtools():
-    data = MToolsBase.query.filter_by().first()
-    return flask.render_template('MTools/download.html', version=data.version_code)
-
+    try:
+        data = MToolsBase.query.filter_by().first()
+        return flask.render_template('MTools/download.html', version=data.version_code)
+    except AttributeError:
+        return flask.render_template('MTools/download.html')
 
 
 @app.route('/MTools/download/<file_type>')
@@ -171,6 +176,66 @@ def parzibot():
     return flask.render_template('Parzibot/home.html', link=os.environ.get('ParzibotLink'))
 
 
+# SecurePass code
+class SecurePassBase(db.Model):
+    """P1MT DataBase for files"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    file_name = db.Column(db.String(25), unique=False, nullable=False)
+    version_code = db.Column(db.String(6), unique=False, nullable=False)
+    data = db.Column(db.LargeBinary, nullable=False)
+
+    def __repr__(self):
+        return '<SecurePassBase %r>' % self.id
+
+    @staticmethod
+    def add_elm(filename, version_code, data):
+        """Adds new file in database"""
+        new = SecurePassBase(file_name=filename, version_code=version_code, data=data)
+        db.session.add(new)
+        db.session.commit()
+
+    @staticmethod
+    def remove_elms():
+        """Remove all elements of database"""
+        SecurePassBase.query.delete()
+
+
+@app.route('/SecurePass')
+def secure_pass():
+    try:
+        return flask.render_template('SecurePass/home.html',
+                                     version=SecurePassBase.query.filter_by().first().version_code)
+    except AttributeError:
+        return flask.render_template('SecurePass/home.html')
+
+
+@app.route('/SecurePass/download')
+def download_secure_pass():
+    data = SecurePassBase.query.filter_by().first()
+    return send_file(BytesIO(data.data), attachment_filename=data.file_name, as_attachment=True)
+
+
+@app.route('/SecurePass/update')
+def update_secure_pass():
+    """SecurePass file update page"""
+    try:
+        return flask.render_template('SecurePass/update.html',
+                                     version=SecurePassBase.query.filter_by().first().version_code)
+    except AttributeError:
+        return flask.render_template('SecurePass/update.html')
+
+
+@app.route('/SecurePass/upload', methods=['POST'])
+def upload_secure_pass():
+    """Uploads SecurePass file in database"""
+    check_hash(request.form['key'])
+    SecurePassBase().remove_elms()
+    SecurePassBase().add_elm(request.files['file'].filename, request.form['version_code'], request.files['file'].read())
+    return flask.render_template('SecurePass/update.html', result="File has been uploaded successfully.")
+
+
+# Hash checker
 def check_hash(u_key):
     """Checks password for uploading files"""
     if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != os.environ.get('KEY'):
