@@ -1,0 +1,64 @@
+{% extends 'bases/SecurePass.html' %}
+
+{% block title %}
+SecurePass
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="content">
+        <p class="title">SecurePass</p>
+        <p class="text">
+            SecurePass is free open-source password manager with cool design and password generator.
+            <br>Just remember one key, using a lot of passwords.
+        </p>
+    </div>
+</main>
+
+<style>
+    main {
+        color: #47ed87;
+        padding-top: 5%;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .title {
+        width: 100%;
+        text-align: center;
+        vertical-align:middle;
+        font-size: 3em;
+        color: #47ed87
+    }
+
+    .text {
+        width: 100%;
+        font-size: 2em;
+        margin: 5% 5% 5% 5%;
+        padding: 8px;
+
+        border: #47ed87 4px solid;
+        border-radius: 54px;
+        background: #4d4d4d;
+        width: 90%;
+    }
+
+    .type {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 1s steps(60, end), blink 1s step-end infinite;
+    }
+
+    @keyframes typing {
+        from {
+            width: 0%
+        }
+        to {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
