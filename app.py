@@ -140,6 +140,7 @@ def mtools():
 
 @app.route('/MTools/download')
 def download_mtools():
+    """Download Page for MTools"""
     try:
         data = MToolsBase.query.filter_by().first()
         return flask.render_template('MTools/download.html', version=data.version_code)
@@ -178,7 +179,7 @@ def parzibot():
 
 # SecurePass code
 class SecurePassBase(db.Model):
-    """P1MT DataBase for files"""
+    """SecurePass DataBase for files"""
 
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(25), unique=False, nullable=False)
@@ -203,6 +204,7 @@ class SecurePassBase(db.Model):
 
 @app.route('/SecurePass')
 def secure_pass():
+    """SecurePass Page"""
     try:
         return flask.render_template('SecurePass/home.html',
                                      version=SecurePassBase.query.filter_by().first().version_code)
@@ -212,6 +214,7 @@ def secure_pass():
 
 @app.route('/SecurePass/download')
 def download_secure_pass():
+    """Download SecurePass Application"""
     data = SecurePassBase.query.filter_by().first()
     return send_file(BytesIO(data.data), attachment_filename=data.file_name, as_attachment=True)
 

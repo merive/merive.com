@@ -7,8 +7,9 @@ Update SecurePass
 {% block body %}
 <main>
     <div class="form">
+        <p class="type">Update SecurePass</p>
         <form action="/P1MT/upload" enctype="multipart/form-data" method="POST">
-            <p>Update SecurePass</p>
+
             <input class="inp" name="file" type="file"/>
             <br><input class="inp" name="key" placeholder="Write key">
             <br><input class="inp" name="version_code" placeholder="Write version code">
@@ -19,12 +20,8 @@ Update SecurePass
 </main>
 
 <style>
-    main {
-        padding-top: 5%;
-    }
-
     p {
-        font-size: 3em;
+        font-size: 2em;
         color: #47ed87;
     }
 
@@ -41,7 +38,7 @@ Update SecurePass
     .inp {
         color: #47ed87;
         background: #4d4d4d;
-        border: 0.2em solid;
+        border: 0.2em solid #47ed87;
 	  	border-radius: 54px;
 	  	border-color: #47ed87;
 
@@ -50,12 +47,29 @@ Update SecurePass
 
         padding: 12px;
         padding-bottom: 8px;
-        margin: 12px;
+        margin: 10px;
     }
 
     ::placeholder {
         color: #47ed87;
         opacity: 1;
+    }
+
+    .type {
+        display: inline-block;
+        overflow: hidden;
+        box-sizing: border-box;
+        white-space: nowrap;
+        animation: typing 1s steps(60, end), blink 1s step-end infinite;
+    }
+
+    @keyframes typing {
+        from {
+            width: 0%
+        }
+        to {
+            width: 100%;
+        }
     }
 </style>
 {% endblock %}
