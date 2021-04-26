@@ -58,14 +58,14 @@ class P1MTBase(db.Model):
         return '<P1MTBase %r>' % self.id
 
     @staticmethod
-    def add_elm(filename, version_code, data):
+    def add_element_in_base(filename, version_code, data):
         """Adds new file in database"""
         new = P1MTBase(file_name=filename, version_code=version_code, data=data)
         db.session.add(new)
         db.session.commit()
 
     @staticmethod
-    def remove_elms():
+    def remove_all_elements():
         """Remove all elements of database"""
         P1MTBase.query.delete()
 
@@ -94,11 +94,12 @@ def update_p1mt():
 
 
 @app.route('/P1MT/upload', methods=['POST'])
-def upload_p1mt():
+def upload_p1mt_file():
     """Uploads P1MT file in database"""
     check_hash(request.form['key'])
-    P1MTBase().remove_elms()
-    P1MTBase().add_elm(request.files['file'].filename, request.form['version_code'], request.files['file'].read())
+    P1MTBase().remove_all_elements()
+    P1MTBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                   request.files['file'].read())
     return flask.render_template('P1MT/update.html', result="File has been uploaded successfully.")
 
 
@@ -116,7 +117,7 @@ class MToolsBase(db.Model):
         return '<MToolsBase %r>' % self.id
 
     @staticmethod
-    def add_elm(filename, version_code, data):
+    def add_element_in_base(filename, version_code, data):
         """Updates MTools files in database"""
         new = MToolsBase(file_name=filename, version_code=version_code, data=data,
                          file_type=filename[len(filename) - 3:].upper())
@@ -124,8 +125,8 @@ class MToolsBase(db.Model):
         db.session.commit()
 
     @staticmethod
-    def remove_elm(filename):
-        """Removes old element in database"""
+    def remove_all_elements(filename):
+        """Removes all element in database"""
         try:
             MToolsBase.query.filter_by(file_type=filename[len(filename) - 3:].upper()).first().delete()
         except AttributeError:
@@ -162,11 +163,12 @@ def update_mtools():
 
 
 @app.route('/MTools/upload', methods=['POST'])
-def upload_mtools():
+def upload_mtools_file():
     """Uploads new MTools file in database"""
     check_hash(request.form['key'])
-    MToolsBase().remove_elm(request.files['file'].filename)
-    MToolsBase().add_elm(request.files['file'].filename, request.form['version_code'], request.files['file'].read())
+    MToolsBase().remove_all_elements(request.files['file'].filename)
+    MToolsBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                     request.files['file'].read())
     return flask.render_template('MTools/update.html', result="File has been uploaded successfully.")
 
 
@@ -190,14 +192,14 @@ class SecurePassBase(db.Model):
         return '<SecurePassBase %r>' % self.id
 
     @staticmethod
-    def add_elm(filename, version_code, data):
+    def add_element_in_base(filename, version_code, data):
         """Adds new file in database"""
         new = SecurePassBase(file_name=filename, version_code=version_code, data=data)
         db.session.add(new)
         db.session.commit()
 
     @staticmethod
-    def remove_elms():
+    def remove_all_elements():
         """Remove all elements of database"""
         SecurePassBase.query.delete()
 
@@ -230,11 +232,12 @@ def update_secure_pass():
 
 
 @app.route('/SecurePass/upload', methods=['POST'])
-def upload_secure_pass():
+def upload_secure_pass_file():
     """Uploads SecurePass file in database"""
     check_hash(request.form['key'])
-    SecurePassBase().remove_elms()
-    SecurePassBase().add_elm(request.files['file'].filename, request.form['version_code'], request.files['file'].read())
+    SecurePassBase().remove_all_elements()
+    SecurePassBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                         request.files['file'].read())
     return flask.render_template('SecurePass/update.html', result="File has been uploaded successfully.")
 
 
