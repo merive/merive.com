@@ -41,7 +41,7 @@ def about():
 
 @app.errorhandler(HTTPException)
 def error_handler(e):
-    """Return Error page"""
+    """Error page for any Exception"""
     return flask.render_template('main/error.html', error_code=e.code), e.code
 
 
@@ -69,15 +69,18 @@ class P1MTBase(db.Model):
         """Remove all elements of database"""
         P1MTBase.query.delete()
 
+    @staticmethod
+    def get_version():
+        try:
+            return P1MTBase.query.filter_by().first().version_code
+        except AttributeError:
+            return "vx.x.x"
+
 
 @app.route('/P1MT')
 def press1mtimes():
     """P1MT page"""
-    try:
-        data = P1MTBase.query.filter_by().first()
-        return flask.render_template('P1MT/home.html', version=data.version_code)
-    except AttributeError:
-        return flask.render_template('P1MT/home.html')
+    return flask.render_template('P1MT/home.html', version=P1MTBase.get_version())
 
 
 @app.route('/P1MT/download')
@@ -132,6 +135,13 @@ class MToolsBase(db.Model):
         except AttributeError:
             pass
 
+    @staticmethod
+    def get_version():
+        try:
+            return MToolsBase.query.filter_by().first().version_code
+        except AttributeError:
+            return "vx.x.x"
+
 
 @app.route('/MTools')
 def mtools():
@@ -142,11 +152,7 @@ def mtools():
 @app.route('/MTools/download')
 def download_mtools():
     """Download Page for MTools"""
-    try:
-        data = MToolsBase.query.filter_by().first()
-        return flask.render_template('MTools/download.html', version=data.version_code)
-    except AttributeError:
-        return flask.render_template('MTools/download.html')
+    return flask.render_template('MTools/download.html', version=MToolsBase.get_version())
 
 
 @app.route('/MTools/download/<file_type>')
@@ -203,15 +209,19 @@ class SecurePassBase(db.Model):
         """Remove all elements of database"""
         SecurePassBase.query.delete()
 
+    @staticmethod
+    def get_version():
+        try:
+            return SecurePassBase.query.filter_by().first().version_code
+        except AttributeError:
+            return "vx.x.x"
+
 
 @app.route('/SecurePass')
 def secure_pass():
     """SecurePass Page"""
-    try:
-        return flask.render_template('SecurePass/home.html',
-                                     version=SecurePassBase.query.filter_by().first().version_code)
-    except AttributeError:
-        return flask.render_template('SecurePass/home.html')
+    return flask.render_template('SecurePass/home.html',
+                                 version=SecurePassBase.get_version())
 
 
 @app.route('/SecurePass/download')
@@ -224,11 +234,8 @@ def download_secure_pass():
 @app.route('/SecurePass/update')
 def update_secure_pass():
     """SecurePass file update page"""
-    try:
-        return flask.render_template('SecurePass/update.html',
-                                     version=SecurePassBase.query.filter_by().first().version_code)
-    except AttributeError:
-        return flask.render_template('SecurePass/update.html')
+    return flask.render_template('SecurePass/update.html',
+                                 version=SecurePassBase.get_version())
 
 
 @app.route('/SecurePass/upload', methods=['POST'])
@@ -238,7 +245,8 @@ def upload_secure_pass_file():
     SecurePassBase().remove_all_elements()
     SecurePassBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
                                          request.files['file'].read())
-    return flask.render_template('SecurePass/update.html', result="File has been uploaded successfully.")
+    return flask.render_template('SecurePass/update.html', version=SecurePassBase.get_version(),
+                                 result="File has been uploaded successfully.")
 
 
 # Hash checker
