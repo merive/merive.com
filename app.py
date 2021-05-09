@@ -7,6 +7,9 @@ from flask import Flask, request, send_file
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import HTTPException
 
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-* Main variables, configs *-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -14,6 +17,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* Main site pages *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -45,7 +51,9 @@ def error_handler(e):
     return flask.render_template('main/error.html', error_code=e.code), e.code
 
 
-# Press1MTimes code
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*- Press1MTimes base -*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class P1MTBase(db.Model):
     """P1MT DataBase for files"""
 
@@ -71,12 +79,16 @@ class P1MTBase(db.Model):
 
     @staticmethod
     def get_version():
+        """Return version of application"""
         try:
             return P1MTBase.query.filter_by().first().version_code
         except AttributeError:
             return "vx.x.x"
 
 
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*- Press1MTimes Page -*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/P1MT')
 def press1mtimes():
     """P1MT page"""
@@ -99,17 +111,19 @@ def update_p1mt():
 @app.route('/P1MT/upload', methods=['POST'])
 def upload_p1mt_file():
     """Uploads P1MT file in database"""
-    check_hash(request.form['key'])
-    P1MTBase().remove_all_elements()
-    P1MTBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
-                                   request.files['file'].read())
-    return flask.render_template('P1MT/update.html', result="File has been uploaded successfully.")
+    if check_hash(request.form['key']):
+        P1MTBase().remove_all_elements()
+        P1MTBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                       request.files['file'].read())
+        return flask.render_template('P1MT/update.html', result="File has been uploaded successfully.")
+    return flask.render_template('main/error.html', error_code=403), 403
 
 
-# MTools code
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-* MTools base *-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class MToolsBase(db.Model):
     """MTools database"""
-
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(25), unique=False, nullable=False)
     version_code = db.Column(db.String(6), unique=False, nullable=False)
@@ -143,6 +157,9 @@ class MToolsBase(db.Model):
             return "vx.x.x"
 
 
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-* MTools page *-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/MTools')
 def mtools():
     """MTools page"""
@@ -171,21 +188,26 @@ def update_mtools():
 @app.route('/MTools/upload', methods=['POST'])
 def upload_mtools_file():
     """Uploads new MTools file in database"""
-    check_hash(request.form['key'])
-    MToolsBase().remove_all_elements(request.files['file'].filename)
-    MToolsBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
-                                     request.files['file'].read())
-    return flask.render_template('MTools/update.html', result="File has been uploaded successfully.")
+    if check_hash(request.form['key']):
+        MToolsBase().remove_all_elements(request.files['file'].filename)
+        MToolsBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                         request.files['file'].read())
+        return flask.render_template('MTools/update.html', result="File has been uploaded successfully.")
+    return flask.render_template('main/error.html', error_code=403), 403
 
 
-# Parzibot code
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*- Parzibot page -*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/Parzibot')
 def parzibot():
     """Parzibot page"""
     return flask.render_template('Parzibot/home.html', link=os.environ.get('ParzibotLink'))
 
 
-# SecurePass code
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* SecurePass base *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class SecurePassBase(db.Model):
     """SecurePass DataBase for files"""
 
@@ -217,6 +239,9 @@ class SecurePassBase(db.Model):
             return "vx.x.x"
 
 
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* SecurePass page *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/SecurePass')
 def secure_pass():
     """SecurePass Page"""
@@ -241,20 +266,22 @@ def update_secure_pass():
 @app.route('/SecurePass/upload', methods=['POST'])
 def upload_secure_pass_file():
     """Uploads SecurePass file in database"""
-    check_hash(request.form['key'])
-    SecurePassBase().remove_all_elements()
-    SecurePassBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
-                                         request.files['file'].read())
-    return flask.render_template('SecurePass/update.html', version=SecurePassBase.get_version(),
-                                 result="File has been uploaded successfully.")
+    if check_hash(request.form['key']):
+        SecurePassBase().remove_all_elements()
+        SecurePassBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                             request.files['file'].read())
+        return flask.render_template('SecurePass/update.html', version=SecurePassBase.get_version(),
+                                     result="File has been uploaded successfully.")
+    return flask.render_template('main/error.html', error_code=403), 403
 
 
-# Hash checker
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*- Password hash checker -*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 def check_hash(u_key):
     """Checks password for uploading files"""
-    if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != os.environ.get('KEY'):
-        return flask.render_template('main/error.html'), 403
+    return hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() == os.environ.get('KEY')
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
