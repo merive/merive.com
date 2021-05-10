@@ -1,0 +1,75 @@
+{% extends 'bases/LinuxSetup.html' %}
+
+{% block title %}
+LinuxSetups
+{% endblock %}
+
+{% block body %}
+<main>
+    <p class="title">Welcome to LinuxSetup! There you can explore setups by <b>
+        <a href="https://reddit.com/user/merive_">merive_</a></b></p>
+    <div class="background">
+        <div class="content">
+            {% for name, link, description in values %}
+            <h2>
+                <b>
+                    <a href="{{ link }}">{{ name }}</a>
+                </b>
+            </h2>
+            <p>
+                {{ description }}
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+
+        padding-left: 7%;
+        padding-right: 7%;
+        padding-bottom: 0.75em;
+    }
+
+    .background {
+        border: #d77020 solid 2px;
+        border-radius: 10px;
+        background: #2C2C2C;
+    }
+
+    .content {
+        color: #d77020;
+        margin: 0.5em 0.5em 0.5em 0.5em;
+    }
+
+    .title {
+        font-size: 2em;
+        font-family: 'Major Mono Display', monospace;
+
+        width: 100%;
+        align-content: center;
+        text-align: center;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    p {
+        font-size: 1.5em;
+        color: #d77020;
+    }
+
+    a {
+        font-family: 'Major Mono Display', monospace;
+        color: #d77020;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #d77020;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}

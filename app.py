@@ -7,13 +7,19 @@ from flask import Flask, request, send_file
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import HTTPException
 
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-* Main variables, configs *-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')  # Get link on database from server
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
 
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* Main site pages *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -41,14 +47,15 @@ def about():
 
 @app.errorhandler(HTTPException)
 def error_handler(e):
-    """Return Error page"""
+    """Error page for any Exception"""
     return flask.render_template('main/error.html', error_code=e.code), e.code
 
 
-# Press1MTimes code
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*- Press1MTimes base -*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class P1MTBase(db.Model):
     """P1MT DataBase for files"""
-
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(25), unique=False, nullable=False)
     version_code = db.Column(db.String(6), unique=False, nullable=False)
@@ -69,15 +76,22 @@ class P1MTBase(db.Model):
         """Remove all elements of database"""
         P1MTBase.query.delete()
 
+    @staticmethod
+    def get_version():
+        """Return version of application"""
+        try:
+            return P1MTBase.query.filter_by().first().version_code
+        except AttributeError:
+            return "vx.x.x"
 
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*- Press1MTimes Page -*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/P1MT')
 def press1mtimes():
     """P1MT page"""
-    try:
-        data = P1MTBase.query.filter_by().first()
-        return flask.render_template('P1MT/home.html', version=data.version_code)
-    except AttributeError:
-        return flask.render_template('P1MT/home.html')
+    return flask.render_template('P1MT/home.html', version=P1MTBase().get_version())
 
 
 @app.route('/P1MT/download')
@@ -96,17 +110,19 @@ def update_p1mt():
 @app.route('/P1MT/upload', methods=['POST'])
 def upload_p1mt_file():
     """Uploads P1MT file in database"""
-    check_hash(request.form['key'])
-    P1MTBase().remove_all_elements()
-    P1MTBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
-                                   request.files['file'].read())
-    return flask.render_template('P1MT/update.html', result="File has been uploaded successfully.")
+    if check_hash(request.form['key']):
+        P1MTBase().remove_all_elements()
+        P1MTBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                       request.files['file'].read())
+        return flask.render_template('P1MT/update.html', result="File has been uploaded successfully.")
+    return flask.render_template('main/error.html', error_code=403), 403
 
 
-# MTools code
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-* MTools base *-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class MToolsBase(db.Model):
     """MTools database"""
-
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(25), unique=False, nullable=False)
     version_code = db.Column(db.String(6), unique=False, nullable=False)
@@ -132,7 +148,18 @@ class MToolsBase(db.Model):
         except AttributeError:
             pass
 
+    @staticmethod
+    def get_version():
+        """Get last version of application"""
+        try:
+            return MToolsBase.query.filter_by().first().version_code
+        except AttributeError:
+            return "vx.x.x"
 
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-* MTools page *-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/MTools')
 def mtools():
     """MTools page"""
@@ -142,11 +169,7 @@ def mtools():
 @app.route('/MTools/download')
 def download_mtools():
     """Download Page for MTools"""
-    try:
-        data = MToolsBase.query.filter_by().first()
-        return flask.render_template('MTools/download.html', version=data.version_code)
-    except AttributeError:
-        return flask.render_template('MTools/download.html')
+    return flask.render_template('MTools/download.html', version=MToolsBase.get_version())
 
 
 @app.route('/MTools/download/<file_type>')
@@ -165,21 +188,26 @@ def update_mtools():
 @app.route('/MTools/upload', methods=['POST'])
 def upload_mtools_file():
     """Uploads new MTools file in database"""
-    check_hash(request.form['key'])
-    MToolsBase().remove_all_elements(request.files['file'].filename)
-    MToolsBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
-                                     request.files['file'].read())
-    return flask.render_template('MTools/update.html', result="File has been uploaded successfully.")
+    if check_hash(request.form['key']):
+        MToolsBase().remove_all_elements(request.files['file'].filename)
+        MToolsBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                         request.files['file'].read())
+        return flask.render_template('MTools/update.html', result="File has been uploaded successfully.")
+    return flask.render_template('main/error.html', error_code=403), 403
 
 
-# Parzibot code
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*- Parzibot page -*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/Parzibot')
 def parzibot():
     """Parzibot page"""
     return flask.render_template('Parzibot/home.html', link=os.environ.get('ParzibotLink'))
 
 
-# SecurePass code
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* SecurePass base *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class SecurePassBase(db.Model):
     """SecurePass DataBase for files"""
 
@@ -203,15 +231,23 @@ class SecurePassBase(db.Model):
         """Remove all elements of database"""
         SecurePassBase.query.delete()
 
+    @staticmethod
+    def get_version():
+        """Get last version of application"""
+        try:
+            return SecurePassBase.query.filter_by().first().version_code
+        except AttributeError:
+            return "vx.x.x"
 
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* SecurePass page *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route('/SecurePass')
 def secure_pass():
     """SecurePass Page"""
-    try:
-        return flask.render_template('SecurePass/home.html',
-                                     version=SecurePassBase.query.filter_by().first().version_code)
-    except AttributeError:
-        return flask.render_template('SecurePass/home.html')
+    return flask.render_template('SecurePass/home.html',
+                                 version=SecurePassBase.get_version())
 
 
 @app.route('/SecurePass/download')
@@ -224,29 +260,112 @@ def download_secure_pass():
 @app.route('/SecurePass/update')
 def update_secure_pass():
     """SecurePass file update page"""
-    try:
-        return flask.render_template('SecurePass/update.html',
-                                     version=SecurePassBase.query.filter_by().first().version_code)
-    except AttributeError:
-        return flask.render_template('SecurePass/update.html')
+    return flask.render_template('SecurePass/update.html',
+                                 version=SecurePassBase.get_version())
 
 
 @app.route('/SecurePass/upload', methods=['POST'])
 def upload_secure_pass_file():
     """Uploads SecurePass file in database"""
-    check_hash(request.form['key'])
-    SecurePassBase().remove_all_elements()
-    SecurePassBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
-                                         request.files['file'].read())
-    return flask.render_template('SecurePass/update.html', result="File has been uploaded successfully.")
+    if check_hash(request.form['key']):
+        SecurePassBase().remove_all_elements()
+        SecurePassBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
+                                             request.files['file'].read())
+        return flask.render_template('SecurePass/update.html', version=SecurePassBase.get_version(),
+                                     result="File has been uploaded successfully.")
+    return flask.render_template('main/error.html', error_code=403), 403
 
 
-# Hash checker
-def check_hash(u_key):
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* LinuxSetup base *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+class LinuxSetupBase(db.Model):
+    """LinuxSetup DataBase for files"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=False, nullable=False)
+    link = db.Column(db.String(128), unique=False, nullable=False)
+    description = db.Column(db.String(128), unique=False, nullable=False)
+
+    def __repr__(self):
+        return '<LinuxSetupBase %r>' % self.name
+
+    @staticmethod
+    def add_element_in_base(name, link, description):
+        """Adds new file in database"""
+        new = LinuxSetupBase(name=name, link=link, description=description)
+        db.session.add(new)
+        db.session.commit()
+
+    @staticmethod
+    def get_data():
+        """Get All Data"""
+        try:
+            return LinuxSetupBase.query.all()
+        except AttributeError:
+            return None
+
+    @staticmethod
+    def delete_by_id(setup_id):
+        """Delete setup from database using id"""
+        try:
+            LinuxSetupBase.query.filter_by(id=setup_id).delete()
+            db.session.commit()
+        except AttributeError:
+            pass
+
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* LinuxSetup page *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+@app.route("/LinuxSetup")
+def linux_setup():
+    """LinuxSetup main page"""
+
+    return flask.render_template("LinuxSetup/home.html", values=get_values_of_linux_setup())
+
+
+@app.route("/LinuxSetup/add")
+def add_linux_setup():
+    """Add LinuxSetup page"""
+    return flask.render_template("LinuxSetup/add.html")
+
+
+@app.route('/LinuxSetup/upload', methods=['POST'])
+def upload_linux_setup():
+    """Upload LinuxSetup data in DataBase"""
+    if check_hash(request.form['key']):
+        LinuxSetupBase.add_element_in_base(request.form['name'], request.form['link'], request.form['description'])
+        return flask.render_template('LinuxSetup/add.html', result="Setup was added successfully.")
+    return flask.render_template('main/error.html', error_code=403), 403
+
+
+@app.route('/LinuxSetup/delete/<setup_id>/<password>')
+def delete_setup(setup_id, password):
+    """Delete setup by id"""
+    if check_hash(password):
+        LinuxSetupBase.delete_by_id(setup_id)
+        return f"Setup #{setup_id} deleted"
+    return flask.render_template('main/error.html', error_code=403), 403
+
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*- Another functions -*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+def check_hash(password):
     """Checks password for uploading files"""
-    if hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() != os.environ.get('KEY'):
-        return flask.render_template('main/error.html'), 403
+    return hashlib.sha224(bytes(password, encoding='utf-8')).hexdigest() == os.environ.get('KEY')
 
 
+def get_values_of_linux_setup():
+    try:
+        data = LinuxSetupBase.get_data()
+        return [[i.name, i.link, i.description] for i in data]
+    except TypeError or AttributeError:
+        return []
+
+
+# Run application
 if __name__ == "__main__":
     app.run(debug=False)

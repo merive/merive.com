@@ -8,7 +8,7 @@ Error {{ error_code }}
 <main>
     <div class="background">
         <div class="content">
-            <p>Something went wrong, {{ error_code }}</p>
+            <p>Something went wrong, <b>{{ error_code }}</b></p>
         </div>
     </div>
 </main>
@@ -29,15 +29,15 @@ Error {{ error_code }}
 
     .background {
         position: absolute;
-    	top: 50%;
-    	left: 50%;
-    	transform: translateX(-50%) translateY(-50%);
-    	width: 90%;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 90%;
 
         border: black solid 5px;
         border-radius: 10px;
         background: #333;
-   }
+    }
 
     .content {
         color: #218b5f;

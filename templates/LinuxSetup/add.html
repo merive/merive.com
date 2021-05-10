@@ -1,0 +1,58 @@
+{% extends 'bases/LinuxSetup.html' %}
+
+{% block title %}
+Add LinuxSetup
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="form">
+        <p class="type">Add LinuxSetup</p>
+        <form action="/LinuxSetup/upload" enctype="multipart/form-data" method="POST">
+            <input class="inp" name="key" placeholder="Write key">
+            <br><input class="inp" name="name" placeholder="Setup name">
+            <br><input class="inp" name="link" placeholder="Link on Setup">
+            <br><input class="inp" name="description" placeholder="Description">
+            <br><input class="inp" type="submit"/>
+            <p style="font-size: 1em; ">{{ result }}</p>
+        </form>
+    </div>
+</main>
+
+<style>
+    p {
+        font-size: 2em;
+        color: #d77020;
+
+        font-family: 'Major Mono Display', monospace;
+    }
+
+    .form {
+        text-align: center;
+        color: #d77020;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    .inp {
+        color: #d77020;
+        background: #2C2C2C;
+        border: 0.3em solid #d77020;
+        border-radius: 22px;
+
+        width: 18em;
+        height: 4em;
+
+        padding: 12px 12px 8px;
+        margin: 10px;
+    }
+
+    ::placeholder {
+        color: #d77020;
+        opacity: 1;
+    }
+</style>
+{% endblock %}

@@ -34,7 +34,6 @@ SecurePass
     }
 
     .text {
-        width: 100%;
         font-size: 2em;
         margin: 5% 5% 5% 5%;
         padding: 8px;
@@ -48,13 +47,14 @@ SecurePass
     .type {
         display: inline-block;
         overflow: hidden;
+        box-sizing: border-box;
         white-space: nowrap;
-        animation: typing 1s steps(60, end), blink 1s step-end infinite;
+        animation: typing 2s steps(90, end), blink 2ms step-end infinite;
     }
 
     @keyframes typing {
         from {
-            width: 0%
+            width: 0
         }
         to {
             width: 100%;

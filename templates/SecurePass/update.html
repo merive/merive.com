@@ -29,23 +29,21 @@ Update SecurePass
         color: #47ed87;
 
         position: absolute;
-    	top: 50%;
-    	left: 50%;
-    	transform: translateX(-50%) translateY(-50%);
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
     }
 
     .inp {
         color: #47ed87;
         background: #4d4d4d;
         border: 0.2em solid #47ed87;
-	  	border-radius: 54px;
-	  	border-color: #47ed87;
+        border-radius: 54px;
 
         width: 18em;
         height: 4em;
 
-        padding: 12px;
-        padding-bottom: 8px;
+        padding: 12px 12px 8px;
         margin: 10px;
     }
 
@@ -59,12 +57,12 @@ Update SecurePass
         overflow: hidden;
         box-sizing: border-box;
         white-space: nowrap;
-        animation: typing 1s steps(60, end), blink 1s step-end infinite;
+        animation: typing 2s steps(90, end), blink 2ms step-end infinite;
     }
 
     @keyframes typing {
         from {
-            width: 0%
+            width: 0
         }
         to {
             width: 100%;
