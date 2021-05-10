@@ -8,16 +8,18 @@
     <title>
         {% block title %}{% endblock %}
     </title>
-    <!-- Bootstrap CSS -->
+
+    <!--  Bootstrap CSS  -->
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" rel="stylesheet">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Orbitron&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
     <!-- Set favicon -->
-    <link href="{{ url_for('static', filename='merive.ico') }}" rel="shortcut icon">
+    <link href="{{ url_for('static', filename='linux.ico') }}" rel="shortcut icon">
 </head>
 <body>
 <!-- Bootstrap JS -->
@@ -29,21 +31,19 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
 
 <!--  Navbar code  -->
-<nav class="navbar fixed-top navbar-dark" style="background-color: #333">
+<nav class="navbar fixed-top navbar-dark" style="background-color: #2C2C2C">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/" style="color: #218b5f !important">merive_</a>
+        <a class="navbar-brand" href="/LinuxSetup" style="color: #d77020 !important">LinuxSetup</a>
         <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
                 class="navbar-toggler" data-bs-target="#navbarNavAltMarkup" data-bs-toggle="collapse"
-                style="color: #218b5f !important;"
+                style="color: #d77020 !important"
                 type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="/projects" style="color: #218b5f !important">Projects</a>
-                <a class="nav-link" href="/LinuxSetup" style="color: #218b5f !important">Setup</a>
-                <a class="nav-link" href="/links" style="color: #218b5f !important">Links</a>
-                <a class="nav-link" href="/about" style="color: #218b5f !important">About</a>
+                <a class="nav-link" href="https://reddit.com/user/merive_" style="color: #d77020 !important">Reddit</a>
+                <a class="nav-link" href="/" style="color: #d77020 !important">Back</a>
             </div>
         </div>
     </div>
@@ -54,9 +54,10 @@
 </body>
 <style>
     body {
-        background-image: linear-gradient(to right, #286334, #327a70);
+        background: #222;
 
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
 
         padding-top: 70px;
     }
@@ -66,16 +67,16 @@
     }
 
     body::-webkit-scrollbar-track {
-        background: #333;
+        background: #222;
     }
 
     body::-webkit-scrollbar-thumb {
-        background: #218b5f;
+        background: #d77020;
     }
 
     a {
-        font-family: 'Orbitron', sans-serif;
-        text-decoration: none;
+        font-family: 'Major Mono Display', monospace;
     }
+
 </style>
 </html>

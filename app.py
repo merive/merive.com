@@ -11,7 +11,8 @@ from werkzeug.exceptions import HTTPException
 # -*-*-*-*-* Main variables, configs *-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config[
+    'SQLALCHEMY_DATABASE_URI'] = "sqlite:///base.db"  # os.environ.get('DATABASE_URL') # Get link on database from server
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -56,7 +57,6 @@ def error_handler(e):
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class P1MTBase(db.Model):
     """P1MT DataBase for files"""
-
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(25), unique=False, nullable=False)
     version_code = db.Column(db.String(6), unique=False, nullable=False)
@@ -92,7 +92,7 @@ class P1MTBase(db.Model):
 @app.route('/P1MT')
 def press1mtimes():
     """P1MT page"""
-    return flask.render_template('P1MT/home.html', version=P1MTBase.get_version())
+    return flask.render_template('P1MT/home.html', version=P1MTBase().get_version())
 
 
 @app.route('/P1MT/download')
@@ -276,11 +276,84 @@ def upload_secure_pass_file():
 
 
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* LinuxSetup base *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+class LinuxSetupBase(db.Model):
+    """LinuxSetup DataBase for files"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=False, nullable=False)
+    link = db.Column(db.String(128), unique=False, nullable=False)
+    description = db.Column(db.String(128), unique=False, nullable=False)
+
+    def __repr__(self):
+        return '<LinuxSetupBase %r>' % self.name
+
+    @staticmethod
+    def add_element_in_base(name, link, description):
+        """Adds new file in database"""
+        new = LinuxSetupBase(name=name, link=link, description=description)
+        db.session.add(new)
+        db.session.commit()
+
+    @staticmethod
+    def get_data():
+        """Get All Data"""
+        try:
+            return LinuxSetupBase.query.all()
+        except AttributeError:
+            return None
+
+    @staticmethod
+    def delete_by_id(id):
+        try:
+            LinuxSetupBase.query.filter_by(id=id).delete()
+            db.session.commit()
+        except AttributeError:
+            pass
+
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* LinuxSetup page *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+@app.route("/LinuxSetup")
+def linux_setup():
+    data = LinuxSetupBase.get_data()
+    values = [[i.name, i.link, i.description] for i in data]
+
+    return flask.render_template("LinuxSetup/home.html", values=values)
+
+
+@app.route("/LinuxSetup/add")
+def add_linux_setup():
+    return flask.render_template("LinuxSetup/add.html")
+
+
+@app.route('/LinuxSetup/upload', methods=['POST'])
+def upload_linux_setup():
+    """Upload LinuxSetup data in DataBase"""
+    if check_hash(request.form['key']):
+        LinuxSetupBase.add_element_in_base(request.form['name'], request.form['link'], request.form['description'])
+        return flask.render_template('LinuxSetup/add.html', result="Setup was added successfully.")
+    return flask.render_template('main/error.html', error_code=403), 403
+
+
+@app.route('/LinuxSetup/delete/<id>/<password>')
+def delete_setup(id, password):
+    """Delete setup by id"""
+    if check_hash(password):
+        LinuxSetupBase.delete_by_id(id)
+        return f"Setup #{id} deleted"
+    return flask.render_template('main/error.html', error_code=403), 403
+
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*- Password hash checker -*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-def check_hash(u_key):
+
+def check_hash(password):
     """Checks password for uploading files"""
-    return hashlib.sha224(bytes(u_key, encoding='utf-8')).hexdigest() == os.environ.get('KEY')
+    return hashlib.sha224(bytes(password, encoding='utf-8')).hexdigest() == os.environ.get('KEY')
 
 
 if __name__ == "__main__":
