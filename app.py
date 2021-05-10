@@ -11,8 +11,7 @@ from werkzeug.exceptions import HTTPException
 # -*-*-*-*-* Main variables, configs *-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 app = Flask(__name__)
-app.config[
-    'SQLALCHEMY_DATABASE_URI'] = "sqlite:///base.db"  # os.environ.get('DATABASE_URL') # Get link on database from server
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')  # Get link on database from server
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -151,6 +150,7 @@ class MToolsBase(db.Model):
 
     @staticmethod
     def get_version():
+        """Get last version of application"""
         try:
             return MToolsBase.query.filter_by().first().version_code
         except AttributeError:
@@ -233,6 +233,7 @@ class SecurePassBase(db.Model):
 
     @staticmethod
     def get_version():
+        """Get last version of application"""
         try:
             return SecurePassBase.query.filter_by().first().version_code
         except AttributeError:
@@ -305,9 +306,10 @@ class LinuxSetupBase(db.Model):
             return None
 
     @staticmethod
-    def delete_by_id(id):
+    def delete_by_id(setup_id):
+        """Delete setup from database using id"""
         try:
-            LinuxSetupBase.query.filter_by(id=id).delete()
+            LinuxSetupBase.query.filter_by(id=setup_id).delete()
             db.session.commit()
         except AttributeError:
             pass
@@ -318,14 +320,14 @@ class LinuxSetupBase(db.Model):
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 @app.route("/LinuxSetup")
 def linux_setup():
-    data = LinuxSetupBase.get_data()
-    values = [[i.name, i.link, i.description] for i in data]
+    """LinuxSetup main page"""
 
-    return flask.render_template("LinuxSetup/home.html", values=values)
+    return flask.render_template("LinuxSetup/home.html", values=get_values_of_linux_setup())
 
 
 @app.route("/LinuxSetup/add")
 def add_linux_setup():
+    """Add LinuxSetup page"""
     return flask.render_template("LinuxSetup/add.html")
 
 
@@ -338,17 +340,17 @@ def upload_linux_setup():
     return flask.render_template('main/error.html', error_code=403), 403
 
 
-@app.route('/LinuxSetup/delete/<id>/<password>')
-def delete_setup(id, password):
+@app.route('/LinuxSetup/delete/<setup_id>/<password>')
+def delete_setup(setup_id, password):
     """Delete setup by id"""
     if check_hash(password):
-        LinuxSetupBase.delete_by_id(id)
-        return f"Setup #{id} deleted"
+        LinuxSetupBase.delete_by_id(setup_id)
+        return f"Setup #{setup_id} deleted"
     return flask.render_template('main/error.html', error_code=403), 403
 
 
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*- Password hash checker -*-*-*-*-*-
+# -*-*-*-*-*-*- Another functions -*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 def check_hash(password):
@@ -356,5 +358,14 @@ def check_hash(password):
     return hashlib.sha224(bytes(password, encoding='utf-8')).hexdigest() == os.environ.get('KEY')
 
 
+def get_values_of_linux_setup():
+    try:
+        data = LinuxSetupBase.get_data()
+        return [[i.name, i.link, i.description] for i in data]
+    except TypeError or AttributeError:
+        return []
+
+
+# Run application
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
