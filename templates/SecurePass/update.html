@@ -7,7 +7,7 @@ Update SecurePass
 {% block body %}
 <main>
     <div class="form">
-        <p class="type">Update SecurePass</p>
+        <p class="type title">Update SecurePass</p>
         <form action="/SecurePass/upload" enctype="multipart/form-data" method="POST">
             <input class="inp" name="file" type="file"/>
             <br><input class="inp" name="key" placeholder="Write key">
@@ -19,32 +19,46 @@ Update SecurePass
 </main>
 
 <style>
+    main {
+        display: flex;
+        flex-direction: column;
+
+        padding-left: 7%;
+        padding-right: 7%;
+        padding-bottom: 0.75em;
+    }
+
     p {
-        font-size: 2em;
         color: #47ed87;
+        font-size: 2em;
+
+    }
+
+    .title {
+        color: #47ed87;
+        width: 100%;
+        align-content: center;
+        text-align: center;
+        margin-top: 1em;
+
     }
 
     .form {
         text-align: center;
         color: #47ed87;
-
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
     }
 
     .inp {
         color: #47ed87;
         background: #4d4d4d;
-        border: 0.2em solid #47ed87;
-        border-radius: 54px;
+        border: 0.3em solid #47ed87;
+        border-radius: 22px;
 
         width: 18em;
         height: 4em;
 
+        margin: 0.5em 0.5em 0.5em 0.5em;
         padding: 12px 12px 8px;
-        margin: 10px;
     }
 
     ::placeholder {

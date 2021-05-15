@@ -110,7 +110,7 @@ def update_p1mt():
 @app.route('/P1MT/upload', methods=['POST'])
 def upload_p1mt_file():
     """Uploads P1MT file in database"""
-    if check_hash(request.form['key']):
+    if check_password(request.form['key']):
         P1MTBase().remove_all_elements()
         P1MTBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
                                        request.files['file'].read())
@@ -188,7 +188,7 @@ def update_mtools():
 @app.route('/MTools/upload', methods=['POST'])
 def upload_mtools_file():
     """Uploads new MTools file in database"""
-    if check_hash(request.form['key']):
+    if check_password(request.form['key']):
         MToolsBase().remove_all_elements(request.files['file'].filename)
         MToolsBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
                                          request.files['file'].read())
@@ -267,7 +267,7 @@ def update_secure_pass():
 @app.route('/SecurePass/upload', methods=['POST'])
 def upload_secure_pass_file():
     """Uploads SecurePass file in database"""
-    if check_hash(request.form['key']):
+    if check_password(request.form['key']):
         SecurePassBase().remove_all_elements()
         SecurePassBase().add_element_in_base(request.files['file'].filename, request.form['version_code'],
                                              request.files['file'].read())
@@ -334,7 +334,7 @@ def add_linux_setup():
 @app.route('/LinuxSetup/upload', methods=['POST'])
 def upload_linux_setup():
     """Upload LinuxSetup data in DataBase"""
-    if check_hash(request.form['key']):
+    if check_password(request.form['key']):
         LinuxSetupBase.add_element_in_base(request.form['name'], request.form['link'], request.form['description'])
         return flask.render_template('LinuxSetup/add.html', result="Setup was added successfully.")
     return flask.render_template('main/error.html', error_code=403), 403
@@ -343,7 +343,7 @@ def upload_linux_setup():
 @app.route('/LinuxSetup/delete/<setup_id>/<password>')
 def delete_setup(setup_id, password):
     """Delete setup by id"""
-    if check_hash(password):
+    if check_password(password):
         LinuxSetupBase.delete_by_id(setup_id)
         return f"Setup #{setup_id} deleted"
     return flask.render_template('main/error.html', error_code=403), 403
@@ -353,7 +353,7 @@ def delete_setup(setup_id, password):
 # -*-*-*-*-*-*- Another functions -*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
-def check_hash(password):
+def check_password(password):
     """Checks password for uploading files"""
     return hashlib.sha224(bytes(password, encoding='utf-8')).hexdigest() == os.environ.get('KEY')
 
