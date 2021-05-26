@@ -54,11 +54,24 @@
 </body>
 <style>
     body {
-        background-image: linear-gradient(to right, #286334, #327a70);
+        animation: animateBg 10s linear infinite;
+        background-image: linear-gradient(45deg, #286334, #218b5f, #327a70, #218b5f, #286334);
+        background-size: 100% 1100%;
+        height: 100vh;
+        width: 100vw;
 
         font-family: 'Montserrat', sans-serif;
 
         padding-top: 70px;
+    }
+
+    @keyframes animateBg {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 0 100%;
+        }
     }
 
     body::-webkit-scrollbar {

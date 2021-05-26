@@ -341,7 +341,7 @@ def upload_linux_setup():
 
 
 @app.route('/LinuxSetup/delete/<setup_id>/<password>')
-def delete_setup(setup_id, password):
+async def delete_setup(setup_id, password):
     """Delete setup by id"""
     if check_password(password):
         LinuxSetupBase.delete_by_id(setup_id)
