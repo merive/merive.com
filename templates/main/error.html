@@ -8,7 +8,10 @@ Error {{ error_code }}
 <main>
     <div class="background">
         <div class="content">
-            <p>Something went wrong, <b>{{ error_code }}</b></p>
+            <p>
+                Something went wrong, <b>{{ error_code }}</b>.
+                <br>Try again or Return on Main Page <b>¯\_(ツ)_/¯</b>.
+            </p>
         </div>
     </div>
 </main>
@@ -17,6 +20,13 @@ Error {{ error_code }}
     main {
         font-family: 'Orbitron', sans-serif;
         color: black;
+
+        display: flex;
+        flex-direction: column;
+
+        padding-left: 7%;
+        padding-right: 7%;
+        padding-top: 15%;
     }
 
     p {
@@ -28,12 +38,6 @@ Error {{ error_code }}
     }
 
     .background {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        width: 90%;
-
         border: black solid 5px;
         border-radius: 10px;
         background: #333;

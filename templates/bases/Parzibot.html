@@ -30,7 +30,7 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
 
 <!--  Navbar code  -->
-<nav class="navbar fixed-top navbar-dark" style="background-image: linear-gradient(45deg, #ac40c0, #1fe983);">
+<nav class="navbar fixed-top navbar-dark" style="background-image: linear-gradient(90deg, #ac40c0, #1fe983);">
     <div class="container-fluid">
         <a class="navbar-brand" href="/Parzibot" style="color: #000 !important">Parzibot</a>
         <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
@@ -55,12 +55,25 @@
 </body>
 <style>
     body {
-        background: linear-gradient(to right, #ac40c0, #1fe983);
+        animation: animateBg 10s alternate infinite;
+        background-image: linear-gradient(45deg, #ac40c0, #1fe983);
+        background-size: 100% 1100%;
+        height: 100vh;
+        width: 100vw;
 
         font-family: 'Orbitron', sans-serif;
         font-size: 16px;
 
         padding-top: 70px;
+    }
+
+    @keyframes animateBg {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 0 100%;
+        }
     }
 
     body::-webkit-scrollbar {
