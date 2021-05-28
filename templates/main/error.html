@@ -10,7 +10,8 @@ Error {{ error_code }}
         <div class="content">
             <p>
                 Something went wrong, <b>{{ error_code }}</b>.
-                <br>Try again or Return on Main Page <b>¯\_(ツ)_/¯</b>.
+                <br>Try again or Return on Main Page.
+                <br>¯\_(ツ)_/¯
             </p>
         </div>
     </div>
@@ -22,11 +23,11 @@ Error {{ error_code }}
         color: black;
 
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
-        padding-left: 7%;
-        padding-right: 7%;
-        padding-top: 15%;
+        padding: 6%;
+        height: 90%;
     }
 
     p {
@@ -45,7 +46,7 @@ Error {{ error_code }}
 
     .content {
         color: #218b5f;
-        margin: 0.5em 0.5em 0.5em 0.5em;
+        margin: 1.5em;
     }
 </style>
 {% endblock %}

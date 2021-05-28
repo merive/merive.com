@@ -321,7 +321,6 @@ class LinuxSetupBase(db.Model):
 @app.route("/LinuxSetup")
 def linux_setup():
     """LinuxSetup main page"""
-
     return flask.render_template("LinuxSetup/home.html", values=get_values_of_linux_setup())
 
 
@@ -359,6 +358,7 @@ def check_password(password):
 
 
 def get_values_of_linux_setup():
+    """Get data of setups from database"""
     try:
         data = LinuxSetupBase.get_data()
         return [[i.name, i.link, i.description] for i in data]
