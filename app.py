@@ -10,6 +10,7 @@ from werkzeug.exceptions import HTTPException
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-* Main variables, configs *-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')  # Get link on database from server
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -20,6 +21,7 @@ db = SQLAlchemy(app)
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-* Main site pages *-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -58,7 +60,7 @@ class P1MTBase(db.Model):
     """P1MT DataBase for files"""
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(25), unique=False, nullable=False)
-    version_code = db.Column(db.String(6), unique=False, nullable=False)
+    version_code = db.Column(db.String(8), unique=False, nullable=False)
     data = db.Column(db.LargeBinary, nullable=False)
 
     def __repr__(self):
@@ -88,6 +90,7 @@ class P1MTBase(db.Model):
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*- Press1MTimes Page -*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 @app.route('/P1MT')
 def press1mtimes():
     """P1MT page"""
@@ -121,11 +124,12 @@ def upload_p1mt_file():
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-* MTools base *-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 class MToolsBase(db.Model):
     """MTools database"""
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(25), unique=False, nullable=False)
-    version_code = db.Column(db.String(6), unique=False, nullable=False)
+    version_code = db.Column(db.String(8), unique=False, nullable=False)
     data = db.Column(db.LargeBinary, nullable=False)
     file_type = db.Column(db.String(3), unique=False, nullable=False)
 
@@ -160,6 +164,7 @@ class MToolsBase(db.Model):
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-* MTools page *-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 @app.route('/MTools')
 def mtools():
     """MTools page"""
@@ -199,6 +204,7 @@ def upload_mtools_file():
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*- Parzibot page -*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 @app.route('/Parzibot')
 def parzibot():
     """Parzibot page"""
@@ -208,12 +214,13 @@ def parzibot():
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-* SecurePass base *-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 class SecurePassBase(db.Model):
     """SecurePass DataBase for files"""
 
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(25), unique=False, nullable=False)
-    version_code = db.Column(db.String(6), unique=False, nullable=False)
+    version_code = db.Column(db.String(8), unique=False, nullable=False)
     data = db.Column(db.LargeBinary, nullable=False)
 
     def __repr__(self):
@@ -243,6 +250,7 @@ class SecurePassBase(db.Model):
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-* SecurePass page *-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 @app.route('/SecurePass')
 def secure_pass():
     """SecurePass Page"""
@@ -279,6 +287,7 @@ def upload_secure_pass_file():
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-* LinuxSetup base *-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 class LinuxSetupBase(db.Model):
     """LinuxSetup DataBase for files"""
 
@@ -318,6 +327,7 @@ class LinuxSetupBase(db.Model):
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-* LinuxSetup page *-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
 @app.route("/LinuxSetup")
 def linux_setup():
     """LinuxSetup main page"""
@@ -369,3 +379,6 @@ def get_values_of_linux_setup():
 # Run application
 if __name__ == "__main__":
     app.run(debug=False)
+
+def make_db():
+    db.create_all()
