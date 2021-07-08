@@ -171,12 +171,6 @@ def mtools():
     return flask.render_template('MTools/home.html')
 
 
-@app.route('/MTools/download')
-def download_mtools():
-    """Download Page for MTools"""
-    return flask.render_template('MTools/download.html', version=MToolsBase.get_version())
-
-
 @app.route('/MTools/download/<file_type>')
 def save_mtools(file_type):
     """Saves MTools files on your PC"""
@@ -378,7 +372,8 @@ def get_values_of_linux_setup():
 
 # Run application
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
+
 
 def make_db():
     db.create_all()
