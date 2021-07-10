@@ -53,9 +53,9 @@ def error_handler(e):
     return flask.render_template('main/error.html', error_code=e.code), e.code
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*- Press1MTimes Database -*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class P1MTBase(db.Model):
     """P1MT DataBase for files"""
     id = db.Column(db.Integer, primary_key=True)
@@ -87,9 +87,9 @@ class P1MTBase(db.Model):
             return "vx.x.x"
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 # -*-*-*-*-*-*- Press1MTimes Pages -*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 @app.route('/P1MT')
 def press1mtimes():
@@ -121,9 +121,9 @@ def upload_p1mt_file():
     return flask.render_template('main/error.html', error_code=403), 403
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-* MTools Database *-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 class MToolsBase(db.Model):
     """MTools database"""
@@ -161,9 +161,9 @@ class MToolsBase(db.Model):
             return "vx.x.x"
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 # -*-*-*-*-*-*-*-* MTools Pages *-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 @app.route('/MTools')
 def mtools():
@@ -205,9 +205,14 @@ def parzibot():
     return flask.render_template('Parzibot/home.html', link=os.environ.get('ParzibotLink'))
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+@app.route('/Parzibot/about')
+def parzibot_about():
+    """Parzibot about page"""
+    return flask.render_template('Parzibot/about.html', links=os.environ.get('ParzibotLink'))
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-* SecurePass Database *-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 class SecurePassBase(db.Model):
     """SecurePass DataBase for files"""
@@ -278,9 +283,9 @@ def upload_secure_pass_file():
     return flask.render_template('main/error.html', error_code=403), 403
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-* LinuxSetup Database *-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 class LinuxSetupBase(db.Model):
     """LinuxSetup DataBase for files"""
@@ -318,9 +323,9 @@ class LinuxSetupBase(db.Model):
             pass
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 # -*-*-*-*-*-*-* LinuxSetup Pages *-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 @app.route("/LinuxSetup")
 def linux_setup():
