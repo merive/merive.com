@@ -97,6 +97,12 @@ def press1mtimes():
     return flask.render_template('P1MT/home.html', version=P1MTBase().get_version())
 
 
+@app.route('/P1MT/about')
+def press1mtimes_about():
+    """P1MT about page"""
+    return flask.render_template('P1MT/about.html', version=P1MTBase().get_version())
+
+
 @app.route('/P1MT/download')
 def download_p1mt():
     """Download P1MT page"""
