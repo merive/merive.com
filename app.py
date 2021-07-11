@@ -171,6 +171,12 @@ def mtools():
     return flask.render_template('MTools/home.html')
 
 
+@app.route('/MTools/about')
+def mtools_about():
+    """MTools about page"""
+    return flask.render_template('MTools/about.html')
+
+
 @app.route('/MTools/download/<file_type>')
 def save_mtools(file_type):
     """Saves MTools files on your PC"""
@@ -209,6 +215,7 @@ def parzibot():
 def parzibot_about():
     """Parzibot about page"""
     return flask.render_template('Parzibot/about.html', links=os.environ.get('ParzibotLink'))
+
 
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-* SecurePass Database *-*-*-*-*-*-*-
