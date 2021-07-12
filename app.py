@@ -270,6 +270,13 @@ def secure_pass():
                                  version=SecurePassBase.get_version())
 
 
+@app.route('/SecurePass/about')
+def secure_pass_about():
+    """SecurePass about page"""
+    return flask.render_template('SecurePass/about.html',
+                                 version=SecurePassBase.get_version())
+
+
 @app.route('/SecurePass/download')
 def download_secure_pass():
     """Download SecurePass Application"""
