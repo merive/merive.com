@@ -353,6 +353,12 @@ def linux_setup():
     return flask.render_template("LinuxSetup/home.html", values=get_values_of_linux_setup())
 
 
+@app.route('/LinuxSetup/about')
+def linux_setup_about():
+    """LinuxSetup about page"""
+    return flask.render_template("LinuxSetup/about.html")
+
+
 @app.route("/LinuxSetup/add")
 def add_linux_setup():
     """Add LinuxSetup page"""
