@@ -3,6 +3,7 @@ import os
 from io import BytesIO
 
 import flask
+from flask_sslify import SSLify
 from flask import Flask, request, send_file
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import HTTPException
@@ -15,6 +16,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')  # Get link on database from server
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+sslify = SSLify(app)
 db = SQLAlchemy(app)
 
 
@@ -403,7 +405,7 @@ def get_values_of_linux_setup():
 
 # Run application
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
 
 
 def make_db():
