@@ -8,7 +8,7 @@ Update MTools
 <main>
     <div class="form">
         <form action="/MTools/upload" enctype="multipart/form-data" method="POST">
-            <p>Update MTools</p>
+            <p class="title">Update MTools</p>
             <input class="inp" name="file" type="file"/>
             <br><input class="inp" name="key" placeholder="Write key">
             <br><input class="inp" name="version_code" placeholder="Write version code">
@@ -22,7 +22,10 @@ Update MTools
     main {
         display: flex;
         flex-direction: column;
-        margin: 5%;
+        align-items: center;
+        justify-content: center;
+        padding: 5% 0 5% 0;
+        height: 90%;
     }
 
     p {
@@ -30,9 +33,18 @@ Update MTools
         color: #BBE1FA;
     }
 
+    .title {
+        color: #BBE1FA;
+        width: 100%;
+        align-content: center;
+        text-align: center;
+        margin-top: 1em;
+    }
+
     .form {
         text-align: center;
         color: #1A2A33;
+        margin: auto;
     }
 
     .inp {

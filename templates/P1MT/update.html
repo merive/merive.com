@@ -8,7 +8,7 @@ Update P1MT
 <main>
     <div class="form">
         <form action="/P1MT/upload" enctype="multipart/form-data" method="POST">
-            <p>Update P1MT</p>
+            <p class="title">Update P1MT</p>
             <input class="inp" name="file" type="file"/>
             <br><input class="inp" name="key" placeholder="Write key">
             <br><input class="inp" name="version_code" placeholder="Write version code">
@@ -22,17 +22,29 @@ Update P1MT
     main {
         display: flex;
         flex-direction: column;
-        margin: 5%;
+        align-items: center;
+        justify-content: center;
+        padding: 5% 0 5% 0;
+        height: 90%;
     }
 
     p {
-        font-size: 3em;
+        font-size: 2.5em;
         color: #AF251B;
+    }
+
+    .title {
+        color: #AF251B;
+        width: 100%;
+        align-content: center;
+        text-align: center;
+        margin-top: 0.5em;
     }
 
     .form {
         text-align: center;
         color: #AF251B;
+        margin: auto;
     }
 
     .inp {

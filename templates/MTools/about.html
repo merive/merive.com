@@ -1,0 +1,52 @@
+{% extends 'bases/MTools.html' %}
+
+{% block title %}
+    About MTools
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="content">
+            <p class="title">About MTools</p>
+            <p class="text">
+                <b>MTools</b> is free open-source software for your tasks.
+                <br>There you can find simple applications: <i>Note</i>, <i>Calculator</i>, <i>Email</i>, <i>Time</i>
+                and <i>RRC</i>.
+                <br>Use <i>Note</i> for quick editing of text files, <i>Calculator</i> for simple counting,
+                <i>Email</i> for email sending, <i>Time</i> for viewing time and <i>RRC</i> for message encrypting/decrypting.
+                <br>All this applications in one bundle - <b>MTools</b>.
+            </p>
+        </div>
+    </main>
+
+    <style>
+        main {
+            color: black;
+        }
+
+        .content {
+            text-align: center;
+            padding: 1%;
+        }
+
+        .title {
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 5%;
+
+            font-size: 3.2em;
+            color: #BBE1FA;
+        }
+
+        .text {
+            font-size: 2em;
+            color: #BBE1FA;
+            margin: 5% 5% 5% 5%;
+
+            border: solid 2px #BBE1FA;
+            background: #1A2A33;
+            width: 90%;
+        }
+    </style>
+{% endblock %}

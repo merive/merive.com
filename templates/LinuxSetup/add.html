@@ -7,7 +7,7 @@ Add LinuxSetup
 {% block body %}
 <main>
     <div class="form">
-        <p class="type">Add LinuxSetup</p>
+        <p class="title">Add LinuxSetup</p>
         <form action="/LinuxSetup/upload" enctype="multipart/form-data" method="POST">
             <input class="inp" name="key" placeholder="Write key">
             <br><input class="inp" name="name" placeholder="Setup name">
@@ -23,19 +23,30 @@ Add LinuxSetup
     main {
         display: flex;
         flex-direction: column;
-        margin: 5%;
+        align-items: center;
+        justify-content: center;
+        padding: 5% 0 5% 0;
+        height: 90%;
     }
 
     p {
         font-size: 2em;
         color: #d77020;
-
         font-family: 'Major Mono Display', monospace;
+    }
+
+    .title {
+        color: #d77020;
+        width: 100%;
+        align-content: center;
+        text-align: center;
+        margin-top: 1em;
     }
 
     .form {
         text-align: center;
         color: #d77020;
+        margin: auto;
     }
 
     .inp {

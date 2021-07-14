@@ -1,0 +1,56 @@
+{% extends 'bases/LinuxSetup.html' %}
+
+{% block title %}
+    About LinuxSetup
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="content">
+            <p class="title">About LinuxSetup</p>
+            <p class="text">
+                <b>LinuxSetup</b> is my project with my Linux Setups.
+                <br>You can find all my setups on this website.
+                <br>There you can read short description, find link on image and more details about setup.
+                <br>Also you can know about new setups on my website.
+            </p>
+        </div>
+    </main>
+
+    <style>
+        main {
+            color: #d77020;
+            text-align: center;
+            padding: 1%;
+        }
+
+        .content {
+            text-align: center;
+            padding: 1%;
+        }
+
+        .title {
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 5%;
+            font-size: 2.75em;
+            font-family: 'Major Mono Display', monospace;
+            color: #d77020;
+        }
+
+        .text {
+            border: #d77020 solid 2px;
+            border-radius: 10px;
+            background: #2C2C2C;
+            font-size: 2em;
+            font-family: 'Major Mono Display', monospace;
+
+            width: 90%;
+            align-content: center;
+            text-align: center;
+            margin: 5% 5% 5% 5%;
+            padding: 0.5em;
+        }
+    </style>
+{% endblock %}

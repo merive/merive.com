@@ -3,6 +3,7 @@ import os
 from io import BytesIO
 
 import flask
+from flask_sslify import SSLify
 from flask import Flask, request, send_file
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.exceptions import HTTPException
@@ -15,6 +16,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')  # Get link on database from server
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+sslify = SSLify(app)
 db = SQLAlchemy(app)
 
 
@@ -53,9 +55,9 @@ def error_handler(e):
     return flask.render_template('main/error.html', error_code=e.code), e.code
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*- Press1MTimes base -*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*- Press1MTimes Database -*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 class P1MTBase(db.Model):
     """P1MT DataBase for files"""
     id = db.Column(db.Integer, primary_key=True)
@@ -87,14 +89,20 @@ class P1MTBase(db.Model):
             return "vx.x.x"
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*- Press1MTimes Page -*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+# -*-*-*-*-*-*- Press1MTimes Pages -*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 @app.route('/P1MT')
 def press1mtimes():
     """P1MT page"""
     return flask.render_template('P1MT/home.html', version=P1MTBase().get_version())
+
+
+@app.route('/P1MT/about')
+def press1mtimes_about():
+    """P1MT about page"""
+    return flask.render_template('P1MT/about.html', version=P1MTBase().get_version())
 
 
 @app.route('/P1MT/download')
@@ -121,9 +129,9 @@ def upload_p1mt_file():
     return flask.render_template('main/error.html', error_code=403), 403
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-* MTools base *-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-* MTools Database *-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 class MToolsBase(db.Model):
     """MTools database"""
@@ -161,9 +169,9 @@ class MToolsBase(db.Model):
             return "vx.x.x"
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-* MTools page *-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+# -*-*-*-*-*-*-*-* MTools Pages *-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 @app.route('/MTools')
 def mtools():
@@ -171,10 +179,10 @@ def mtools():
     return flask.render_template('MTools/home.html')
 
 
-@app.route('/MTools/download')
-def download_mtools():
-    """Download Page for MTools"""
-    return flask.render_template('MTools/download.html', version=MToolsBase.get_version())
+@app.route('/MTools/about')
+def mtools_about():
+    """MTools about page"""
+    return flask.render_template('MTools/about.html')
 
 
 @app.route('/MTools/download/<file_type>')
@@ -202,7 +210,7 @@ def upload_mtools_file():
 
 
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*- Parzibot page -*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*- Parzibot Page -*-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 @app.route('/Parzibot')
@@ -211,9 +219,15 @@ def parzibot():
     return flask.render_template('Parzibot/home.html', link=os.environ.get('ParzibotLink'))
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-* SecurePass base *-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+@app.route('/Parzibot/about')
+def parzibot_about():
+    """Parzibot about page"""
+    return flask.render_template('Parzibot/about.html', links=os.environ.get('ParzibotLink'))
+
+
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* SecurePass Database *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 class SecurePassBase(db.Model):
     """SecurePass DataBase for files"""
@@ -248,13 +262,20 @@ class SecurePassBase(db.Model):
 
 
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-* SecurePass page *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* SecurePass Page *-*-*-*-*-*-*-
 # -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 @app.route('/SecurePass')
 def secure_pass():
     """SecurePass Page"""
     return flask.render_template('SecurePass/home.html',
+                                 version=SecurePassBase.get_version())
+
+
+@app.route('/SecurePass/about')
+def secure_pass_about():
+    """SecurePass about page"""
+    return flask.render_template('SecurePass/about.html',
                                  version=SecurePassBase.get_version())
 
 
@@ -284,9 +305,9 @@ def upload_secure_pass_file():
     return flask.render_template('main/error.html', error_code=403), 403
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-* LinuxSetup base *-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-* LinuxSetup Database *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 class LinuxSetupBase(db.Model):
     """LinuxSetup DataBase for files"""
@@ -324,14 +345,20 @@ class LinuxSetupBase(db.Model):
             pass
 
 
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-# -*-*-*-*-*-*-* LinuxSetup page *-*-*-*-*-*-*-
-# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+# -*-*-*-*-*-*-* LinuxSetup Pages *-*-*-*-*-*-*-
+# -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 @app.route("/LinuxSetup")
 def linux_setup():
     """LinuxSetup main page"""
     return flask.render_template("LinuxSetup/home.html", values=get_values_of_linux_setup())
+
+
+@app.route('/LinuxSetup/about')
+def linux_setup_about():
+    """LinuxSetup about page"""
+    return flask.render_template("LinuxSetup/about.html")
 
 
 @app.route("/LinuxSetup/add")
@@ -379,6 +406,7 @@ def get_values_of_linux_setup():
 # Run application
 if __name__ == "__main__":
     app.run(debug=False)
+
 
 def make_db():
     db.create_all()
